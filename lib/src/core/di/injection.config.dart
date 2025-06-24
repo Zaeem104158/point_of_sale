@@ -16,9 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
 import '../route/app_page.dart' as _i900;
 import '../service/cache_service.dart' as _i723;
-import '../style/app_color.dart' as _i908;
-import '../style/app_theme.dart' as _i991;
-import 'modules/app_module.dart' as _i349;
+import 'app_injection_module.dart' as _i975;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 Future<_i174.GetIt> init(
@@ -33,8 +31,6 @@ Future<_i174.GetIt> init(
     preResolve: true,
   );
   gh.lazySingleton<_i900.AppPage>(() => _i900.AppPage());
-  gh.lazySingleton<_i908.AppColor>(() => _i908.AppColor());
-  gh.lazySingleton<_i991.AppTheme>(() => _i991.AppTheme());
   gh.lazySingleton<_i583.GoRouter>(() => appModule.router);
   gh.lazySingleton<_i723.ICacheService>(
     () => _i723.CacheService(gh<_i460.SharedPreferences>()),
@@ -42,4 +38,4 @@ Future<_i174.GetIt> init(
   return getIt;
 }
 
-class _$AppModule extends _i349.AppModule {}
+class _$AppModule extends _i975.AppModule {}

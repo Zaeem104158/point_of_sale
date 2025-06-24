@@ -56,14 +56,13 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    final color = Theme.of(context).colorScheme;
-
-    _getInitialIndex();
 
     return NavigationBar(
       height: kBottomNavigationBarHeight,
       labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-      indicatorColor: Colors.transparent,
+      indicatorColor: isDarkMode
+          ? AppColor.lightText
+          : AppColor.primary.withValues(alpha: 0.15),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       selectedIndex: _selectedIndex,
       onDestinationSelected: _onItemTapped,
@@ -71,16 +70,16 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
         // notificaion
         UnderlinedNavigationDestinationWidget(
           icon: Image.asset(
-            AssetsManager.notificationLight,
+            AssetsService.notificationLight,
             height: 20.sp,
             width: 20.sp,
           ),
           selectedIcon: Image.asset(
-            AssetsManager.notificationDark,
+            AssetsService.notificationDark,
             height: 20.sp,
             width: 20.sp,
           ),
-          selectedColor: isDarkMode ? AppColor.lightText : AppColor.primary,
+          selectedColor: isDarkMode ? AppColor.lightText : AppColor.darkText,
           unselectedColor: AppColor.cardDark,
           isSelected: _selectedIndex == 0,
         ),
@@ -88,16 +87,16 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
         // Home
         UnderlinedNavigationDestinationWidget(
           icon: Image.asset(
-            AssetsManager.homeLight,
+            AssetsService.homeLight,
             height: 20.sp,
             width: 20.sp,
           ),
           selectedIcon: Image.asset(
-            AssetsManager.homeDark,
+            AssetsService.homeDark,
             height: 20.sp,
             width: 20.sp,
           ),
-          selectedColor: isDarkMode ? AppColor.lightText : AppColor.primary,
+          selectedColor: isDarkMode ? AppColor.lightText : AppColor.darkText,
           unselectedColor: AppColor.cardDark,
           isSelected: _selectedIndex == 1,
         ),
@@ -105,16 +104,16 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
         // Profile
         UnderlinedNavigationDestinationWidget(
           icon: Image.asset(
-            AssetsManager.profileLight,
+            AssetsService.profileLight,
             height: 20.sp,
             width: 20.sp,
           ),
           selectedIcon: Image.asset(
-            AssetsManager.profileDark,
+            AssetsService.profileDark,
             height: 20.sp,
             width: 20.sp,
           ),
-          selectedColor: isDarkMode ? AppColor.lightText : AppColor.primary,
+          selectedColor: isDarkMode ? AppColor.lightText : AppColor.darkText,
           unselectedColor: AppColor.cardDark,
           isSelected: _selectedIndex == 2,
         ),

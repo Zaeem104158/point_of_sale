@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:injectable/injectable.dart';
 import 'package:point_of_sale/src/core/style/app_color.dart';
 
-@lazySingleton
 class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
@@ -45,6 +43,19 @@ class AppTheme {
         backgroundColor: Colors.white,
         selectedItemColor: AppColor.primary,
         unselectedItemColor: Colors.grey,
+      ),
+
+      navigationBarTheme: NavigationBarThemeData(
+        height: kBottomNavigationBarHeight,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+        indicatorColor: AppColor.primary.withOpacity(0.15),
+        backgroundColor: AppColor.lightBackground,
+        iconTheme: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return const IconThemeData(color: AppColor.primary);
+          }
+          return const IconThemeData(color: AppColor.cardDark);
+        }),
       ),
     );
   }
@@ -90,6 +101,18 @@ class AppTheme {
         backgroundColor: AppColor.darkBackground,
         selectedItemColor: AppColor.accent,
         unselectedItemColor: Colors.grey,
+      ),
+      navigationBarTheme: NavigationBarThemeData(
+        height: kBottomNavigationBarHeight,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+        indicatorColor: AppColor.lightText.withOpacity(0.15),
+        backgroundColor: AppColor.darkBackground,
+        iconTheme: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return const IconThemeData(color: AppColor.lightText);
+          }
+          return const IconThemeData(color: AppColor.cardLight);
+        }),
       ),
     );
   }

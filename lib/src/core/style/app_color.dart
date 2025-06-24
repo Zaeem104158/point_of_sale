@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:injectable/injectable.dart';
 
-@lazySingleton
 class AppColor {
   // Common
   static const Color primary = Color(0xFF007D9C); // bluish-teal

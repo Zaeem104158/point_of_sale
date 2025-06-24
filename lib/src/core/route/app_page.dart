@@ -8,15 +8,15 @@ part 'routes.dart';
 
 @lazySingleton
 class AppPage {
-  //late ICacheService cacheService;
+  late ICacheService cacheService;
   late List<RouteBase> routes;
   static final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>();
   late GoRouter router;
 
   AppPage() {
-    // cacheService = getIt<ICacheService>();
-    //final token = cacheService.read('bearer_token');
+    cacheService = getIt<ICacheService>();
+    final token = cacheService.read('bearer_token');
 
     routes = [
       GoRoute(
@@ -57,7 +57,7 @@ class AppPage {
     router = GoRouter(
       navigatorKey: navigatorKey,
       routes: routes,
-      //  initialLocation: token != null ? Routes.login.path : Routes.home.path,
+      initialLocation: token == null ? Routes.login.path : Routes.home.path,
     );
   }
 }

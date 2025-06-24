@@ -1,10 +1,9 @@
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:point_of_sale/src/core/di/injection.dart';
-import 'package:point_of_sale/src/core/service/cache_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../route/app_page.dart';
+import '../route/app_page.dart';
 
 @module
 abstract class AppModule {
