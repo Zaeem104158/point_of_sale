@@ -6,17 +6,19 @@ import 'package:point_of_sale/src/core/service/cache_service.dart';
 import 'package:point_of_sale/src/shared/widgets/screen_wrapper.dart';
 part 'routes.dart';
 
-
+@lazySingleton
 class AppPage {
+  //late ICacheService cacheService;
+  late List<RouteBase> routes;
   static final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>();
-  late final GoRouter router;
+  late GoRouter router;
 
   AppPage() {
-    final cacheService = getIt<ICacheService>();
-    final token = cacheService.read('bearer_token');
+    // cacheService = getIt<ICacheService>();
+    //final token = cacheService.read('bearer_token');
 
-    final routes = [
+    routes = [
       GoRoute(
         path: Routes.login.path,
         name: Routes.login.name,
@@ -55,7 +57,7 @@ class AppPage {
     router = GoRouter(
       navigatorKey: navigatorKey,
       routes: routes,
-      initialLocation: token != null ? Routes.login.path : Routes.home.path,
+      //  initialLocation: token != null ? Routes.login.path : Routes.home.path,
     );
   }
 }

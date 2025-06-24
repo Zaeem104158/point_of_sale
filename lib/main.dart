@@ -7,7 +7,7 @@ import 'package:point_of_sale/src/core/route/app_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await configureDependencies();
+  await configureInjection();
   FlutterNativeSplash.remove();
   runApp(App());
 }

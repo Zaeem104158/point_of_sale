@@ -1,7 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 abstract class ICacheService {
   Future<void> write(String key, String value);
   String? read(String key);
@@ -9,6 +8,7 @@ abstract class ICacheService {
   Future<bool> contains(String key);
   Future<void> clear();
 }
+
 @LazySingleton(as: ICacheService)
 class CacheService implements ICacheService {
   final SharedPreferences _prefs;
@@ -40,6 +40,3 @@ class CacheService implements ICacheService {
     await _prefs.clear();
   }
 }
-
-
-
