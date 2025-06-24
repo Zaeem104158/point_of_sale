@@ -48,7 +48,7 @@ class AppTheme {
       navigationBarTheme: NavigationBarThemeData(
         height: kBottomNavigationBarHeight,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-        indicatorColor: AppColor.primary.withOpacity(0.15),
+        indicatorColor: AppColor.primary.withValues(alpha: 0.15),
         backgroundColor: AppColor.lightBackground,
         iconTheme: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
@@ -105,7 +105,7 @@ class AppTheme {
       navigationBarTheme: NavigationBarThemeData(
         height: kBottomNavigationBarHeight,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-        indicatorColor: AppColor.lightText.withOpacity(0.15),
+        indicatorColor: AppColor.lightText.withValues(alpha: 0.15),
         backgroundColor: AppColor.darkBackground,
         iconTheme: WidgetStateProperty.resolveWith((states) {
           if (states.contains(WidgetState.selected)) {
