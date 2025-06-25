@@ -39,7 +39,6 @@ abstract class AppModule {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          log("${options.uri.toString()}");
           final creds = {"username": "api", "password": "apitest"};
           final basic =
               'Basic ' +

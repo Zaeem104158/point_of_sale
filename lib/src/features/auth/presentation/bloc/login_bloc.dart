@@ -1,8 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:point_of_sale/src/features/auth/domain/usercases/login_usercase.dart';
 import 'login_event.dart';
 import 'login_state.dart';
 
+@injectable
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final Login loginUseCase;
 

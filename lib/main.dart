@@ -16,11 +16,12 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider<LoginBloc>(
-          create: (context) => LoginBloc(
-            Login(AuthRepositoryImpl(AuthRemoteDataSource(getIt<Dio>()))),
-          ), // assuming using GetIt
-        ),
+        // BlocProvider<LoginBloc>(
+        //   create: (context) => LoginBloc(
+        //     Login(AuthRepositoryImpl(AuthRemoteDataSource(getIt<Dio>()))),
+        //   ), // assuming using GetIt
+        // ),
+        BlocProvider<LoginBloc>(create: (_) => getIt<LoginBloc>()),
       ],
       child: const App(), // or LoginPage()
     ),

@@ -37,7 +37,6 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-
     late LoginResponseModel _value;
     try {
       _value = LoginResponseModel.fromJson(_result.data!);

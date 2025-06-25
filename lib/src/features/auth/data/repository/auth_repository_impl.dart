@@ -2,14 +2,15 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:injectable/injectable.dart';
 import 'package:point_of_sale/src/core/error/failuer.dart';
 import 'package:point_of_sale/src/features/auth/data/model/login_request_model.dart';
 import 'package:point_of_sale/src/features/auth/domain/entity/login_request_entity.dart';
 import 'package:point_of_sale/src/features/auth/domain/entity/login_response_entity.dart';
-
 import '../../domain/repository/auth_repository.dart';
 import '../datasources/remote/auth_remote_datasource.dart';
 
+@LazySingleton(as: AuthRepository)
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource remoteDataSource;
 
@@ -25,7 +26,6 @@ class AuthRepositoryImpl implements AuthRepository {
       );
 
       final response = await remoteDataSource.login(loginRequestModel);
-      log("Response is : ${response.data.result}}");
       if (response.response.statusCode == 200 &&
           response.data.result?.toLowerCase() == 'success') {
         return Right(response.data);
