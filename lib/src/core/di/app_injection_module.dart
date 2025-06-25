@@ -1,12 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:point_of_sale/src/core/config/app_config.dart';
 import 'package:point_of_sale/src/core/di/injection.dart';
-import 'package:point_of_sale/src/core/service/cache_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../route/app_page.dart';
@@ -41,11 +39,8 @@ abstract class AppModule {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          //  final creds = getIt<ICacheService>().getBasicCredentials();
-          final creds = {
-            "username": "your_username",
-            "password": "your_password",
-          };
+          log("${options.uri.toString()}");
+          final creds = {"username": "api", "password": "apitest"};
           final basic =
               'Basic ' +
               base64Encode(

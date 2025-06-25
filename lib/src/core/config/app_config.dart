@@ -1,9 +1,10 @@
 class AppConfig {
   static const String appName = 'CoinShorts';
 
-  static const String baseUrl = 'https://api.coinshorts.in';
+  static const String baseUrl = 'http://software.abairtechsolution.com';
   static const String apiKey = '';
-  static const String apiBase = '$baseUrl/api';
+  // static const String apiBase = '$baseUrl/api';
+  static const String apiBase = '$baseUrl:1400/ords/mobile/parent';
   //static const String TERMS_AND_CONDITIONS_URL = 'https://app.coinshorts.in/terms';
   //static const String PRIVACY_POLICY_URL = 'https://app.coinshorts.in/privacy';
   //static const String IMAGE_BASE_URL = 'https://coinshorts.s3.ap-south-1.amazonaws.com/';

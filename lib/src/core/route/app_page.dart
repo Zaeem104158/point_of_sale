@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:point_of_sale/src/core/di/injection.dart';
 import 'package:point_of_sale/src/core/service/cache_service.dart';
+import 'package:point_of_sale/src/features/auth/presentation/pages/login_page.dart';
 import 'package:point_of_sale/src/shared/widgets/screen_wrapper.dart';
 part 'routes.dart';
 
@@ -22,9 +23,7 @@ class AppPage {
       GoRoute(
         path: Routes.login.path,
         name: Routes.login.name,
-        pageBuilder: (context, state) => const MaterialPage(
-          child: Scaffold(body: Center(child: Text("Login"))),
-        ),
+        pageBuilder: (context, state) => const MaterialPage(child: LoginPage()),
       ),
       ShellRoute(
         builder: (context, state, child) => ScreenWrapper(child: child),
