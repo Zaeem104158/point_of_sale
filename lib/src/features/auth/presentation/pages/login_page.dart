@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
         username: _usernameController.text.trim(),
         password: _passwordController.text.trim(),
       );
-      log("REQUEST: ${request.username} and ${request.password}");
+
       context.read<LoginBloc>().add(LoginSubmitted(request));
     }
   }
@@ -54,10 +54,11 @@ class _LoginPageState extends State<LoginPage> {
                 context,
                 snackBarType: FancySnackBarType.error,
                 title: "Login failed",
-                message: "Username or password is incorrect.",
+                message: "${state.message}",
                 duration: 5,
                 onCloseEvent: () {
-                  // context.goNamed(Routes.home.name);
+                  _usernameController.clear();
+                  _passwordController.clear();
                 },
               );
             } else if (state is LoginSuccess) {

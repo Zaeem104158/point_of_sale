@@ -50,6 +50,9 @@ dependencies:
     git:
       url: https://github.com/MR0100/fancy_snackbar.git
   glass_kit: ^4.0.1
+  objectbox: ^4.3.0
+  objectbox_flutter_libs: ^4.3.0
+  path_provider: ^2.1.5
 
   
 
@@ -58,6 +61,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.5.4   
   injectable_generator: ^2.7.0 
+  objectbox_generator: ^4.3.0
   retrofit_generator: '>=8.0.0 <10.0.0'
   flutter_launcher_icons: ^0.14.4
 flutter_icons:

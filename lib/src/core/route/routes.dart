@@ -10,7 +10,10 @@ final class Routes {
   static const Route home = Route('home', '/');
   static const Route notifications = Route('search', '/search');
   static const Route profile = Route('profile', '/profile');
+  static const Route settings = Route('settings', 'settings');
+  static const Route about = Route('about', 'about');
   static const Route login = Route('login', '/login');
+  static const Route payBill = Route('payBill', '/paybill');
 }
 
 

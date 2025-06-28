@@ -23,6 +23,7 @@ import '../../features/auth/domain/usercases/login_usercase.dart' as _i749;
 import '../../features/auth/presentation/bloc/login_bloc.dart' as _i990;
 import '../route/app_page.dart' as _i900;
 import '../service/cache_service.dart' as _i723;
+import '../service/database_service.dart' as _i8;
 import 'app_injection_module.dart' as _i975;
 
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -35,6 +36,10 @@ Future<_i174.GetIt> init(
   final appModule = _$AppModule();
   await gh.factoryAsync<_i460.SharedPreferences>(
     () => appModule.prefs,
+    preResolve: true,
+  );
+  await gh.factoryAsync<_i8.ObjectBoxService>(
+    () => appModule.objectBoxService,
     preResolve: true,
   );
   gh.singleton<_i361.Dio>(() => appModule.basicDio());

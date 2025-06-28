@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:point_of_sale/src/core/config/app_config.dart';
 import 'package:point_of_sale/src/core/di/injection.dart';
+import 'package:point_of_sale/src/core/service/database_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../route/app_page.dart';
@@ -15,6 +16,12 @@ abstract class AppModule {
   Future<SharedPreferences> get prefs async =>
       await SharedPreferences.getInstance();
 
+  @preResolve
+  Future<ObjectBoxService> get objectBoxService async {
+    final service = ObjectBoxService();
+    await service.init();
+    return service;
+  }
   // @singleton
   // Dio dio() {
   //   final dio = Dio(BaseOptions(baseUrl: AppConfig.apiBase));
