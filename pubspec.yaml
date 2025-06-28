@@ -46,6 +46,10 @@ dependencies:
   shared_preferences: ^2.5.3
   flutter_screenutil: ^5.9.3
   equatable: ^2.0.7
+  fancy_snackbar:
+    git:
+      url: https://github.com/MR0100/fancy_snackbar.git
+  glass_kit: ^4.0.1
 
   
 

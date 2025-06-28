@@ -56,7 +56,7 @@ class AppPage {
     router = GoRouter(
       navigatorKey: navigatorKey,
       routes: routes,
-      initialLocation: token == null ? Routes.login.path : Routes.home.path,
+      initialLocation: token != null ? Routes.login.path : Routes.home.path,
     );
   }
 }

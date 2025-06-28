@@ -7,4 +7,6 @@ class AssetsService {
   static const String notificationLight = 'assets/icons/notification_light.png';
   static const String profileDark = 'assets/icons/profile_dark.png';
   static const String profileLight = 'assets/icons/profile_light.png';
+  static const String loginBackground =
+      'assets/icons/login_background_image.png';
 }

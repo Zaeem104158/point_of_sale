@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
+import 'package:point_of_sale/src/core/di/injection.dart';
 import 'package:point_of_sale/src/core/error/failuer.dart';
 import 'package:point_of_sale/src/features/auth/data/model/login_request_model.dart';
 import 'package:point_of_sale/src/features/auth/domain/entity/login_request_entity.dart';
@@ -33,11 +35,8 @@ class AuthRepositoryImpl implements AuthRepository {
         return Left(ServerFailure(response.data.message ?? "Server Failure"));
       }
     } on DioException catch (e) {
-      return Left(
-        ServerFailure(
-          e.response?.data['Message'] ?? e.message ?? 'Server error',
-        ),
-      );
+      Logger().e("message: $e");
+      return Left(ServerFailure(e.response?.data));
     } catch (e) {
       return Left(UnknownFailure(e.toString()));
     }

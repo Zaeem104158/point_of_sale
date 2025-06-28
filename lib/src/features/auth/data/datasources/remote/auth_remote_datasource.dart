@@ -12,7 +12,7 @@ abstract interface class AuthRemoteDataSource {
   @factoryMethod
   factory AuthRemoteDataSource(Dio dio) = _AuthRemoteDataSource;
 
-  @POST('/login')
+  @POST('/login_pos')
   Future<HttpResponse<LoginResponseModel>> login(
     @Body() LoginRequestModel loginRequestModel,
   );
