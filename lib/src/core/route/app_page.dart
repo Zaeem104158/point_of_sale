@@ -7,6 +7,7 @@ import 'package:point_of_sale/src/core/service/cache_service.dart';
 import 'package:point_of_sale/src/core/style/app_color.dart';
 import 'package:point_of_sale/src/features/auth/presentation/pages/login_page.dart';
 import 'package:point_of_sale/src/features/home/presentation/pages/home_page.dart';
+import 'package:point_of_sale/src/features/profile/presentation/profile_page.dart';
 part 'routes.dart';
 
 @lazySingleton
@@ -61,25 +62,8 @@ class AppPage {
               GoRoute(
                 path: Routes.profile.path,
                 name: Routes.profile.name,
-                pageBuilder: (context, state) => MaterialPage(
-                  child: Scaffold(
-                    body: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text("Profile"),
-                        ElevatedButton(
-                          onPressed: () {
-                            context.pushNamed(Routes.settings.name);
-                          },
-                          child: Center(child: Text("Goto Settings")),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                pageBuilder: (context, state) =>
+                    MaterialPage(child: ProfilePage()),
                 routes: [
                   GoRoute(
                     path: Routes.settings.path,
@@ -90,7 +74,8 @@ class AppPage {
                         body: Center(
                           child: ElevatedButton(
                             onPressed: () {
-                              context.goNamed(Routes.about.name);
+                              // context.pushNamed(Routes.about.name);
+                              context.pop(true);
                             },
                             child: Text("Goto About"),
                           ),
@@ -133,30 +118,6 @@ class AppPage {
           ),
         ),
       ),
-      // ShellRoute(
-      //   builder: (context, state, child) => ScreenWrapper(child: child),
-      //   routes: [
-      // GoRoute(
-      //   path: Routes.notifications.path,
-      //   name: Routes.notifications.name,
-      //   pageBuilder: (context, state) => const MaterialPage(
-      //     child: Scaffold(body: Center(child: Text("Notification"))),
-      //   ),
-      // ),
-      //     GoRoute(
-      //       path: Routes.home.path,
-      //       name: Routes.home.name,
-      //       pageBuilder: (context, state) => MaterialPage(child: HomePage()),
-      //     ),
-      //     GoRoute(
-      //       path: Routes.profile.path,
-      //       name: Routes.profile.name,
-      //       pageBuilder: (context, state) => const MaterialPage(
-      //         child: Scaffold(body: Center(child: Text("Profile"))),
-      //       ),
-      //     ),
-      //   ],
-      // ),
     ];
 
     router = GoRouter(
@@ -229,3 +190,48 @@ final destination = <Destination>[
     label: 'Profile',
   ),
 ];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+      ShellRoute(
+        builder: (context, state, child) => ScreenWrapper(child: child),
+        routes: [
+      GoRoute(
+        path: Routes.notifications.path,
+        name: Routes.notifications.name,
+        pageBuilder: (context, state) => const MaterialPage(
+          child: Scaffold(body: Center(child: Text("Notification"))),
+        ),
+      ),
+          GoRoute(
+            path: Routes.home.path,
+            name: Routes.home.name,
+            pageBuilder: (context, state) => MaterialPage(child: HomePage()),
+          ),
+          GoRoute(
+            path: Routes.profile.path,
+            name: Routes.profile.name,
+            pageBuilder: (context, state) => const MaterialPage(
+              child: Scaffold(body: Center(child: Text("Profile"))),
+            ),
+          ),
+        ],
+      ),
+*/
