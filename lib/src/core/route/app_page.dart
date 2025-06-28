@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
@@ -128,19 +130,55 @@ class AppPage {
   }
 }
 
-class LayoutScaffold extends StatelessWidget {
+class LayoutScaffold extends StatefulWidget {
   final StatefulNavigationShell navigationShell;
 
   const LayoutScaffold({Key? key, required this.navigationShell})
-    : super(key: key ?? const Key('LayoutScaffold'));
+    : super(key: key);
+
+  @override
+  State<LayoutScaffold> createState() => _LayoutScaffoldState();
+}
+
+class _LayoutScaffoldState extends State<LayoutScaffold> {
+  int _lastIndex = 0;
+
+  void _handleTabChange(int index) {
+    final isSameTab = _lastIndex == index;
+    _lastIndex = index;
+    log("ISTAB: ${_lastIndex} ${index}");
+    widget.navigationShell.goBranch(index);
+
+    // 🔁 Trigger API logic when tab is (re)selected
+    if (index == 2) {
+      // Profile tab
+      _callProfileApi();
+    } else if (index == 1) {
+      _callHomeApi();
+    } else if (index == 0) {
+      _callNotificationApi();
+    }
+  }
+
+  void _callProfileApi() {
+    debugPrint("🔁 Profile API called from tab switch");
+  }
+
+  void _callHomeApi() {
+    debugPrint("🔁 Home API called from tab switch");
+  }
+
+  void _callNotificationApi() {
+    debugPrint("🔁 Notification API called from tab switch");
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: navigationShell,
+      body: widget.navigationShell,
       bottomNavigationBar: NavigationBar(
-        selectedIndex: navigationShell.currentIndex,
-        onDestinationSelected: navigationShell.goBranch,
+        selectedIndex: widget.navigationShell.currentIndex,
+        onDestinationSelected: _handleTabChange,
         indicatorColor: AppColor.primary,
         destinations: destination
             .map(
