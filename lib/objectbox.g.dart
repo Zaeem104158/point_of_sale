@@ -15,6 +15,7 @@ import 'package:objectbox/objectbox.dart' as obx;
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
 import 'src/features/auth/domain/entity/login_response_entity.dart';
+import 'src/features/notification/domain/entity/notification_response_entity.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
@@ -65,6 +66,64 @@ final _entities = <obx_int.ModelEntity>[
     relations: <obx_int.ModelRelation>[],
     backlinks: <obx_int.ModelBacklink>[],
   ),
+  obx_int.ModelEntity(
+    id: const obx_int.IdUid(2, 5712680126433048883),
+    name: 'NotificationResponseEntity',
+    lastPropertyId: const obx_int.IdUid(8, 2444968677864956431),
+    flags: 0,
+    properties: <obx_int.ModelProperty>[
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(1, 2072006378910712863),
+        name: 'id',
+        type: 6,
+        flags: 1,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(2, 275920315943903261),
+        name: 'asnNotId',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(3, 841276810656626339),
+        name: 'asnNotLabel',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(4, 2716613263359126713),
+        name: 'asnNotDesc',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(5, 7926049975032927277),
+        name: 'asnNotStatus',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(6, 179102451878057031),
+        name: 'asnNotAscCompId',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(7, 7317608160021920532),
+        name: 'asnNotCreatedDate',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(8, 2444968677864956431),
+        name: 'asnNotCreatedBy',
+        type: 9,
+        flags: 0,
+      ),
+    ],
+    relations: <obx_int.ModelRelation>[],
+    backlinks: <obx_int.ModelBacklink>[],
+  ),
 ];
 
 /// Shortcut for [obx.Store.new] that passes [getObjectBoxModel] and for Flutter
@@ -105,7 +164,7 @@ Future<obx.Store> openStore({
 obx_int.ModelDefinition getObjectBoxModel() {
   final model = obx_int.ModelInfo(
     entities: _entities,
-    lastEntityId: const obx_int.IdUid(1, 6018243409547234536),
+    lastEntityId: const obx_int.IdUid(2, 5712680126433048883),
     lastIndexId: const obx_int.IdUid(0, 0),
     lastRelationId: const obx_int.IdUid(0, 0),
     lastSequenceId: const obx_int.IdUid(0, 0),
@@ -180,6 +239,79 @@ obx_int.ModelDefinition getObjectBoxModel() {
         return object;
       },
     ),
+    NotificationResponseEntity:
+        obx_int.EntityDefinition<NotificationResponseEntity>(
+          model: _entities[1],
+          toOneRelations: (NotificationResponseEntity object) => [],
+          toManyRelations: (NotificationResponseEntity object) => {},
+          getId: (NotificationResponseEntity object) => object.id,
+          setId: (NotificationResponseEntity object, int id) {
+            object.id = id;
+          },
+          objectToFB: (NotificationResponseEntity object, fb.Builder fbb) {
+            final asnNotLabelOffset = object.asnNotLabel == null
+                ? null
+                : fbb.writeString(object.asnNotLabel!);
+            final asnNotDescOffset = object.asnNotDesc == null
+                ? null
+                : fbb.writeString(object.asnNotDesc!);
+            final asnNotCreatedByOffset = object.asnNotCreatedBy == null
+                ? null
+                : fbb.writeString(object.asnNotCreatedBy!);
+            fbb.startTable(9);
+            fbb.addInt64(0, object.id);
+            fbb.addInt64(1, object.asnNotId);
+            fbb.addOffset(2, asnNotLabelOffset);
+            fbb.addOffset(3, asnNotDescOffset);
+            fbb.addInt64(4, object.asnNotStatus);
+            fbb.addInt64(5, object.asnNotAscCompId);
+            fbb.addInt64(6, object.asnNotCreatedDate?.millisecondsSinceEpoch);
+            fbb.addOffset(7, asnNotCreatedByOffset);
+            fbb.finish(fbb.endTable());
+            return object.id;
+          },
+          objectFromFB: (obx.Store store, ByteData fbData) {
+            final buffer = fb.BufferContext(fbData);
+            final rootOffset = buffer.derefObject(0);
+            final asnNotCreatedDateValue = const fb.Int64Reader()
+                .vTableGetNullable(buffer, rootOffset, 16);
+            final asnNotIdParam = const fb.Int64Reader().vTableGetNullable(
+              buffer,
+              rootOffset,
+              6,
+            );
+            final asnNotLabelParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGetNullable(buffer, rootOffset, 8);
+            final asnNotDescParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGetNullable(buffer, rootOffset, 10);
+            final asnNotStatusParam = const fb.Int64Reader().vTableGetNullable(
+              buffer,
+              rootOffset,
+              12,
+            );
+            final asnNotAscCompIdParam = const fb.Int64Reader()
+                .vTableGetNullable(buffer, rootOffset, 14);
+            final asnNotCreatedDateParam = asnNotCreatedDateValue == null
+                ? null
+                : DateTime.fromMillisecondsSinceEpoch(asnNotCreatedDateValue);
+            final asnNotCreatedByParam = const fb.StringReader(
+              asciiOptimization: true,
+            ).vTableGetNullable(buffer, rootOffset, 18);
+            final object = NotificationResponseEntity(
+              asnNotId: asnNotIdParam,
+              asnNotLabel: asnNotLabelParam,
+              asnNotDesc: asnNotDescParam,
+              asnNotStatus: asnNotStatusParam,
+              asnNotAscCompId: asnNotAscCompIdParam,
+              asnNotCreatedDate: asnNotCreatedDateParam,
+              asnNotCreatedBy: asnNotCreatedByParam,
+            )..id = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+
+            return object;
+          },
+        ),
   };
 
   return obx_int.ModelDefinition(model, bindings);
@@ -216,4 +348,52 @@ class LoginResponseEntity_ {
   static final comId = obx.QueryIntegerProperty<LoginResponseEntity>(
     _entities[0].properties[5],
   );
+}
+
+/// [NotificationResponseEntity] entity fields to define ObjectBox queries.
+class NotificationResponseEntity_ {
+  /// See [NotificationResponseEntity.id].
+  static final id = obx.QueryIntegerProperty<NotificationResponseEntity>(
+    _entities[1].properties[0],
+  );
+
+  /// See [NotificationResponseEntity.asnNotId].
+  static final asnNotId = obx.QueryIntegerProperty<NotificationResponseEntity>(
+    _entities[1].properties[1],
+  );
+
+  /// See [NotificationResponseEntity.asnNotLabel].
+  static final asnNotLabel =
+      obx.QueryStringProperty<NotificationResponseEntity>(
+        _entities[1].properties[2],
+      );
+
+  /// See [NotificationResponseEntity.asnNotDesc].
+  static final asnNotDesc = obx.QueryStringProperty<NotificationResponseEntity>(
+    _entities[1].properties[3],
+  );
+
+  /// See [NotificationResponseEntity.asnNotStatus].
+  static final asnNotStatus =
+      obx.QueryIntegerProperty<NotificationResponseEntity>(
+        _entities[1].properties[4],
+      );
+
+  /// See [NotificationResponseEntity.asnNotAscCompId].
+  static final asnNotAscCompId =
+      obx.QueryIntegerProperty<NotificationResponseEntity>(
+        _entities[1].properties[5],
+      );
+
+  /// See [NotificationResponseEntity.asnNotCreatedDate].
+  static final asnNotCreatedDate =
+      obx.QueryDateProperty<NotificationResponseEntity>(
+        _entities[1].properties[6],
+      );
+
+  /// See [NotificationResponseEntity.asnNotCreatedBy].
+  static final asnNotCreatedBy =
+      obx.QueryStringProperty<NotificationResponseEntity>(
+        _entities[1].properties[7],
+      );
 }

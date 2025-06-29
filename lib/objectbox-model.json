@@ -41,9 +41,58 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "2:5712680126433048883",
+      "lastPropertyId": "8:2444968677864956431",
+      "name": "NotificationResponseEntity",
+      "properties": [
+        {
+          "id": "1:2072006378910712863",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:275920315943903261",
+          "name": "asnNotId",
+          "type": 6
+        },
+        {
+          "id": "3:841276810656626339",
+          "name": "asnNotLabel",
+          "type": 9
+        },
+        {
+          "id": "4:2716613263359126713",
+          "name": "asnNotDesc",
+          "type": 9
+        },
+        {
+          "id": "5:7926049975032927277",
+          "name": "asnNotStatus",
+          "type": 6
+        },
+        {
+          "id": "6:179102451878057031",
+          "name": "asnNotAscCompId",
+          "type": 6
+        },
+        {
+          "id": "7:7317608160021920532",
+          "name": "asnNotCreatedDate",
+          "type": 10
+        },
+        {
+          "id": "8:2444968677864956431",
+          "name": "asnNotCreatedBy",
+          "type": 9
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "1:6018243409547234536",
+  "lastEntityId": "2:5712680126433048883",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
