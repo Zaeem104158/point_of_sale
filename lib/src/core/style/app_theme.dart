@@ -47,15 +47,24 @@ class AppTheme {
 
       navigationBarTheme: NavigationBarThemeData(
         height: kBottomNavigationBarHeight,
-        labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-        indicatorColor: AppColor.primary.withValues(alpha: 0.15),
+        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+        labelTextStyle: WidgetStatePropertyAll(
+          TextStyle(
+            color: AppColor.darkText.withValues(alpha: 0.8),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        indicatorColor: AppColor.primary.withValues(alpha: 0.5),
         backgroundColor: AppColor.lightBackground,
-        iconTheme: WidgetStateProperty.resolveWith((states) {
-          if (states.contains(WidgetState.selected)) {
-            return const IconThemeData(color: AppColor.primary);
-          }
-          return const IconThemeData(color: AppColor.cardDark);
-        }),
+        // indicatorShape: RoundedRectangleBorder(
+        //   borderRadius: BorderRadiusGeometry.circular(0),
+        // ),
+        // iconTheme: WidgetStateProperty.resolveWith((states) {
+        //   if (states.contains(WidgetState.selected)) {
+        //     return const IconThemeData(color: AppColor.primary);
+        //   }
+        //   return const IconThemeData(color: AppColor.cardDark);
+        // }), if material icon is used.
       ),
     );
   }
@@ -104,15 +113,21 @@ class AppTheme {
       ),
       navigationBarTheme: NavigationBarThemeData(
         height: kBottomNavigationBarHeight,
-        labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-        indicatorColor: AppColor.lightText.withValues(alpha: 0.15),
+        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+        labelTextStyle: WidgetStatePropertyAll(
+          TextStyle(
+            color: AppColor.lightText.withValues(alpha: 0.8),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        indicatorColor: AppColor.primary.withValues(alpha: 1),
         backgroundColor: AppColor.darkBackground,
-        iconTheme: WidgetStateProperty.resolveWith((states) {
-          if (states.contains(WidgetState.selected)) {
-            return const IconThemeData(color: AppColor.lightText);
-          }
-          return const IconThemeData(color: AppColor.cardLight);
-        }),
+        // iconTheme: WidgetStateProperty.resolveWith((states) {
+        //   if (states.contains(WidgetState.selected)) {
+        //     return const IconThemeData(color: AppColor.lightText);
+        //   }
+        //   return const IconThemeData(color: AppColor.cardLight);
+        // }), if material icon is used
       ),
     );
   }

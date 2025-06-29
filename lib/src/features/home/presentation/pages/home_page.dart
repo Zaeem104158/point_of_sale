@@ -14,7 +14,15 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Column(children: [
+        
+      ],
+    );
+  }
+}
+
+/* 
+Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
@@ -141,9 +149,8 @@ class HomePage extends StatelessWidget {
       //     ),
       //   ],
       // ),
-    );
-  }
-}
+    )
+*/
 
 class GlassmorphicCard extends StatelessWidget {
   final Widget child;
