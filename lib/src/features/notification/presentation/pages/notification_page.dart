@@ -3,12 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:intl/intl.dart';
+import 'package:point_of_sale/src/core/di/injection.dart';
 import 'package:point_of_sale/src/core/style/app_color.dart';
 import 'package:point_of_sale/src/features/auth/domain/entity/login_response_entity.dart';
 import 'package:point_of_sale/src/features/notification/domain/entity/notification_response_entity.dart';
 import 'package:point_of_sale/src/features/notification/presentation/bloc/notifications_bloc.dart';
 import 'package:point_of_sale/src/features/notification/presentation/bloc/notifications_event.dart';
 import 'package:point_of_sale/src/features/notification/presentation/bloc/notifications_state.dart';
+import 'package:point_of_sale/src/shared/widgets/loader_widget.dart';
 
 class NotificationPage extends StatefulWidget {
   final LoginResponseEntity login;
@@ -45,7 +47,7 @@ class _NotificationPageState extends State<NotificationPage> {
       child: BlocBuilder<NotificationBloc, NotificationState>(
         builder: (context, state) {
           if (state is NotificationLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return Center(child: getIt<LoaderWidget>());
           } else if (state is NotificationLoaded) {
             final notifications = state.notifications;
 

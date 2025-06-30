@@ -6,10 +6,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:go_router/go_router.dart';
+import 'package:point_of_sale/src/core/di/injection.dart';
 import 'package:point_of_sale/src/core/route/app_page.dart';
 import 'package:point_of_sale/src/core/service/asset_service.dart';
 import 'package:point_of_sale/src/core/style/app_color.dart';
 import 'package:point_of_sale/src/features/auth/domain/entity/login_request_entity.dart';
+import 'package:point_of_sale/src/shared/widgets/loader_widget.dart';
 import '../bloc/login_bloc.dart';
 import '../bloc/login_event.dart';
 import '../bloc/login_state.dart';
@@ -196,9 +198,7 @@ class _LoginPageState extends State<LoginPage> {
                               width: double.infinity,
                               height: 48.h,
                               child: state is LoginLoading
-                                  ? const Center(
-                                      child: CircularProgressIndicator(),
-                                    )
+                                  ? Center(child: getIt<LoaderWidget>())
                                   : ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: AppColor.accent,

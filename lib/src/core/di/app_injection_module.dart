@@ -1,17 +1,23 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
 import 'package:point_of_sale/src/core/config/app_config.dart';
 import 'package:point_of_sale/src/core/di/injection.dart';
 import 'package:point_of_sale/src/core/service/database_service.dart';
+import 'package:point_of_sale/src/shared/widgets/loader_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../route/app_page.dart';
 
 @module
 abstract class AppModule {
+  @lazySingleton
+  Logger get logger =>
+      Logger(printer: PrettyPrinter(), filter: DevelopmentFilter());
+
   @preResolve
   Future<SharedPreferences> get prefs async =>
       await SharedPreferences.getInstance();
@@ -22,6 +28,10 @@ abstract class AppModule {
     await service.init();
     return service;
   }
+
+  @lazySingleton
+  Widget get loader => getIt<LoaderWidget>();
+
   // @singleton
   // Dio dio() {
   //   final dio = Dio(BaseOptions(baseUrl: AppConfig.apiBase));

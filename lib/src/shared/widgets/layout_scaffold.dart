@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:point_of_sale/src/core/di/injection.dart';
+import 'package:point_of_sale/src/core/service/database_service.dart';
+import 'package:point_of_sale/src/features/auth/domain/entity/login_response_entity.dart';
+import 'package:point_of_sale/src/features/notification/presentation/bloc/notifications_bloc.dart';
+import 'package:point_of_sale/src/features/notification/presentation/bloc/notifications_event.dart';
 import 'package:point_of_sale/src/shared/widgets/destinations_bottombar.dart';
 
 class LayoutScaffold extends StatefulWidget {
@@ -43,13 +49,13 @@ class _LayoutScaffoldState extends State<LayoutScaffold> {
 
   void _callNotificationApi() {
     debugPrint("🔁 Notification API called from tab switch");
-    /* if you need to call again apis:
-        final store = getIt<ObjectBoxService>().store;
+    // if you need to call again apis:
+    final store = getIt<ObjectBoxService>().store;
     final loginResponseBox = store.box<LoginResponseEntity>();
     final loginResponseData = loginResponseBox.getAll();
     final _bloc = context.read<NotificationBloc>();
 
-    _bloc.add(LoadNotifications(loginResponseData.first));*/
+    _bloc.add(LoadNotifications(loginResponseData.first));
   }
 
   @override

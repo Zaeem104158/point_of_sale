@@ -10,9 +10,11 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
+import 'package:flutter/material.dart' as _i409;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:go_router/go_router.dart' as _i583;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:logger/logger.dart' as _i974;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
 import '../../features/auth/data/datasources/remote/auth_remote_datasource.dart'
@@ -31,6 +33,7 @@ import '../../features/notification/domain/usecases/notifications.dart'
     as _i190;
 import '../../features/notification/presentation/bloc/notifications_bloc.dart'
     as _i65;
+import '../../shared/widgets/loader_widget.dart' as _i516;
 import '../route/app_page.dart' as _i900;
 import '../service/cache_service.dart' as _i723;
 import '../service/database_service.dart' as _i8;
@@ -53,8 +56,11 @@ Future<_i174.GetIt> init(
     preResolve: true,
   );
   gh.singleton<_i361.Dio>(() => appModule.basicDio());
+  gh.lazySingleton<_i974.Logger>(() => appModule.logger);
+  gh.lazySingleton<_i409.Widget>(() => appModule.loader);
   gh.lazySingleton<_i583.GoRouter>(() => appModule.router);
   gh.lazySingleton<_i900.AppPage>(() => _i900.AppPage());
+  gh.lazySingleton<_i516.LoaderWidget>(() => _i516.LoaderWidget());
   gh.lazySingleton<_i1022.AuthRemoteDataSource>(
     () => _i1022.AuthRemoteDataSource(gh<_i361.Dio>()),
   );
