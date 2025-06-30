@@ -23,6 +23,14 @@ import '../../features/auth/domain/usercases/login_usercase.dart' as _i749;
 import '../../features/auth/presentation/bloc/login_bloc.dart' as _i990;
 import '../../features/notification/data/datasources/remote/notification_remote_datasource.dart'
     as _i882;
+import '../../features/notification/data/repository/notification_repository_impl.dart'
+    as _i341;
+import '../../features/notification/domain/repository/notification_repository.dart'
+    as _i1057;
+import '../../features/notification/domain/usecases/notifications.dart'
+    as _i190;
+import '../../features/notification/presentation/bloc/notifications_bloc.dart'
+    as _i65;
 import '../route/app_page.dart' as _i900;
 import '../service/cache_service.dart' as _i723;
 import '../service/database_service.dart' as _i8;
@@ -53,8 +61,19 @@ Future<_i174.GetIt> init(
   gh.lazySingleton<_i882.NotificationRemoteDataSource>(
     () => _i882.NotificationRemoteDataSource(gh<_i361.Dio>()),
   );
+  gh.lazySingleton<_i1057.NotificationRepository>(
+    () => _i341.NotificationRepositoryImpl(
+      gh<_i882.NotificationRemoteDataSource>(),
+    ),
+  );
   gh.lazySingleton<_i723.ICacheService>(
     () => _i723.CacheService(gh<_i460.SharedPreferences>()),
+  );
+  gh.lazySingleton<_i190.Notifications>(
+    () => _i190.Notifications(gh<_i1057.NotificationRepository>()),
+  );
+  gh.factory<_i65.NotificationBloc>(
+    () => _i65.NotificationBloc(gh<_i190.Notifications>()),
   );
   gh.lazySingleton<_i961.AuthRepository>(
     () => _i409.AuthRepositoryImpl(gh<_i1022.AuthRemoteDataSource>()),

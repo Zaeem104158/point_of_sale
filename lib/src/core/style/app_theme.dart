@@ -19,13 +19,66 @@ class AppTheme {
           borderSide: BorderSide(color: AppColor.primary, width: 2),
         ),
       ),
-      textTheme: TextTheme(
-        bodyLarge: TextStyle(color: AppColor.darkText),
-        bodyMedium: TextStyle(color: AppColor.darkText),
-        titleLarge: TextStyle(
-          color: AppColor.primary,
+      textTheme: const TextTheme(
+        displayLarge: TextStyle(
+          fontSize: 48,
           fontWeight: FontWeight.bold,
+          color: AppColor.darkText,
         ),
+        displayMedium: TextStyle(
+          fontSize: 36,
+          fontWeight: FontWeight.bold,
+          color: AppColor.darkText,
+        ),
+        displaySmall: TextStyle(
+          fontSize: 28,
+          fontWeight: FontWeight.w600,
+          color: AppColor.darkText,
+        ),
+        headlineLarge: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: AppColor.darkText,
+        ),
+        headlineMedium: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: AppColor.darkText,
+        ),
+        headlineSmall: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+          color: AppColor.darkText,
+        ),
+        titleLarge: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: AppColor.primary,
+        ),
+        titleMedium: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          color: AppColor.darkText,
+        ),
+        titleSmall: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: AppColor.darkText,
+        ),
+        bodyLarge: TextStyle(fontSize: 16, color: AppColor.darkText),
+        bodyMedium: TextStyle(fontSize: 14, color: AppColor.darkText),
+        bodySmall: TextStyle(fontSize: 12, color: AppColor.darkText),
+        labelLarge: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+          color: AppColor.darkText,
+        ),
+        labelMedium: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+          color: AppColor.darkText,
+        ),
+        labelSmall: TextStyle(fontSize: 10, color: AppColor.darkText),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -34,37 +87,26 @@ class AppTheme {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
       ),
-      cardTheme: CardThemeData(
+      cardTheme: const CardThemeData(
         color: AppColor.cardLight,
         elevation: 3,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
       ),
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: Colors.white,
         selectedItemColor: AppColor.primary,
         unselectedItemColor: Colors.grey,
       ),
-
       navigationBarTheme: NavigationBarThemeData(
         height: kBottomNavigationBarHeight,
-        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
         labelTextStyle: WidgetStatePropertyAll(
-          TextStyle(
-            color: AppColor.darkText.withValues(alpha: 0.8),
-            fontWeight: FontWeight.bold,
-          ),
+          TextStyle(color: AppColor.darkText, fontWeight: FontWeight.bold),
         ),
-        indicatorColor: AppColor.primary.withValues(alpha: 0.5),
+        indicatorColor: AppColor.primary.withOpacity(0.5),
         backgroundColor: AppColor.lightBackground,
-        // indicatorShape: RoundedRectangleBorder(
-        //   borderRadius: BorderRadiusGeometry.circular(0),
-        // ),
-        // iconTheme: WidgetStateProperty.resolveWith((states) {
-        //   if (states.contains(WidgetState.selected)) {
-        //     return const IconThemeData(color: AppColor.primary);
-        //   }
-        //   return const IconThemeData(color: AppColor.cardDark);
-        // }), if material icon is used.
       ),
     );
   }
@@ -86,13 +128,66 @@ class AppTheme {
           borderSide: BorderSide(color: AppColor.accent, width: 2),
         ),
       ),
-      textTheme: TextTheme(
-        bodyLarge: TextStyle(color: AppColor.lightText),
-        bodyMedium: TextStyle(color: AppColor.lightText),
-        titleLarge: TextStyle(
-          color: AppColor.accent,
+      textTheme: const TextTheme(
+        displayLarge: TextStyle(
+          fontSize: 48,
           fontWeight: FontWeight.bold,
+          color: AppColor.lightText,
         ),
+        displayMedium: TextStyle(
+          fontSize: 36,
+          fontWeight: FontWeight.bold,
+          color: AppColor.lightText,
+        ),
+        displaySmall: TextStyle(
+          fontSize: 28,
+          fontWeight: FontWeight.w600,
+          color: AppColor.lightText,
+        ),
+        headlineLarge: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: AppColor.lightText,
+        ),
+        headlineMedium: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: AppColor.lightText,
+        ),
+        headlineSmall: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+          color: AppColor.lightText,
+        ),
+        titleLarge: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: AppColor.accent,
+        ),
+        titleMedium: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          color: AppColor.lightText,
+        ),
+        titleSmall: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: AppColor.lightText,
+        ),
+        bodyLarge: TextStyle(fontSize: 16, color: AppColor.lightText),
+        bodyMedium: TextStyle(fontSize: 14, color: AppColor.lightText),
+        bodySmall: TextStyle(fontSize: 12, color: AppColor.lightText),
+        labelLarge: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+          color: AppColor.lightText,
+        ),
+        labelMedium: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+          color: AppColor.lightText,
+        ),
+        labelSmall: TextStyle(fontSize: 10, color: AppColor.lightText),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -101,33 +196,26 @@ class AppTheme {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
       ),
-      cardTheme: CardThemeData(
+      cardTheme: const CardThemeData(
         color: AppColor.cardDark,
         elevation: 3,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
       ),
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: AppColor.darkBackground,
         selectedItemColor: AppColor.accent,
         unselectedItemColor: Colors.grey,
       ),
       navigationBarTheme: NavigationBarThemeData(
         height: kBottomNavigationBarHeight,
-        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
         labelTextStyle: WidgetStatePropertyAll(
-          TextStyle(
-            color: AppColor.lightText.withValues(alpha: 0.8),
-            fontWeight: FontWeight.bold,
-          ),
+          TextStyle(color: AppColor.lightText, fontWeight: FontWeight.bold),
         ),
-        indicatorColor: AppColor.primary.withValues(alpha: 1),
+        indicatorColor: AppColor.primary,
         backgroundColor: AppColor.darkBackground,
-        // iconTheme: WidgetStateProperty.resolveWith((states) {
-        //   if (states.contains(WidgetState.selected)) {
-        //     return const IconThemeData(color: AppColor.lightText);
-        //   }
-        //   return const IconThemeData(color: AppColor.cardLight);
-        // }), if material icon is used
       ),
     );
   }

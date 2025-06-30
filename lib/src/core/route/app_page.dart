@@ -3,8 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:point_of_sale/src/core/di/injection.dart';
 import 'package:point_of_sale/src/core/service/cache_service.dart';
+import 'package:point_of_sale/src/core/service/database_service.dart';
+import 'package:point_of_sale/src/features/auth/domain/entity/login_response_entity.dart';
 import 'package:point_of_sale/src/features/auth/presentation/pages/login_page.dart';
 import 'package:point_of_sale/src/features/home/presentation/pages/home_page.dart';
+import 'package:point_of_sale/src/features/notification/presentation/pages/notification_page.dart';
 import 'package:point_of_sale/src/features/profile/presentation/profile_page.dart';
 import 'package:point_of_sale/src/shared/widgets/layout_scaffold.dart';
 part 'routes.dart';
@@ -38,9 +41,14 @@ class AppPage {
               GoRoute(
                 path: Routes.notifications.path,
                 name: Routes.notifications.name,
-                pageBuilder: (context, state) => const MaterialPage(
-                  child: Scaffold(body: Center(child: Text("Notification"))),
-                ),
+                pageBuilder: (context, state) {
+                  final store = getIt<ObjectBoxService>().store;
+                  final loginResponseBox = store.box<LoginResponseEntity>();
+                  final loginResponseData = loginResponseBox.getAll();
+                  return MaterialPage(
+                    child: NotificationPage(login: loginResponseData.first),
+                  );
+                },
               ),
             ],
           ),

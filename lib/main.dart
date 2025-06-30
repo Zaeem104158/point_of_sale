@@ -4,6 +4,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:point_of_sale/app.dart';
 import 'package:point_of_sale/src/core/di/injection.dart';
 import 'package:point_of_sale/src/features/auth/presentation/bloc/login_bloc.dart';
+import 'package:point_of_sale/src/features/notification/presentation/bloc/notifications_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,8 +19,11 @@ void main() async {
         //   ), // assuming using GetIt
         // ),
         BlocProvider<LoginBloc>(create: (_) => getIt<LoginBloc>()),
+        BlocProvider<NotificationBloc>(
+          create: (_) => getIt<NotificationBloc>(),
+        ),
       ],
-      child: const App(), 
+      child: const App(),
     ),
   );
 }

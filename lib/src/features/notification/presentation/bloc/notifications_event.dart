@@ -10,6 +10,7 @@ abstract class NotificationEvent extends Equatable {
 
 class LoadNotifications extends NotificationEvent {
   final LoginResponseEntity login;
+  
 
   const LoadNotifications(this.login);
 

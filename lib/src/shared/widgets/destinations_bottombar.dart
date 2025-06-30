@@ -32,13 +32,11 @@ List<Destination> getDestinations(BuildContext context) {
       label: 'Notifications',
     ),
     Destination(
-      icon: Center(
-        child: Image.asset(
-          AssetsService.homeLight,
-          height: 20,
-          width: 20,
-          color: isDark ? AppColor.lightBackground : null,
-        ),
+      icon: Image.asset(
+        AssetsService.homeLight,
+        height: 20,
+        width: 20,
+        color: isDark ? AppColor.lightBackground : null,
       ),
       selectedIcon: Image.asset(AssetsService.homeDark, height: 20, width: 20),
       label: 'Home',

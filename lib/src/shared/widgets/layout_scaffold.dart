@@ -43,6 +43,13 @@ class _LayoutScaffoldState extends State<LayoutScaffold> {
 
   void _callNotificationApi() {
     debugPrint("🔁 Notification API called from tab switch");
+    /* if you need to call again apis:
+        final store = getIt<ObjectBoxService>().store;
+    final loginResponseBox = store.box<LoginResponseEntity>();
+    final loginResponseData = loginResponseBox.getAll();
+    final _bloc = context.read<NotificationBloc>();
+
+    _bloc.add(LoadNotifications(loginResponseData.first));*/
   }
 
   @override
