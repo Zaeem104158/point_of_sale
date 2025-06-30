@@ -8,7 +8,9 @@ import 'package:point_of_sale/src/features/auth/domain/entity/login_response_ent
 import 'package:point_of_sale/src/features/auth/presentation/pages/login_page.dart';
 import 'package:point_of_sale/src/features/home/presentation/pages/home_page.dart';
 import 'package:point_of_sale/src/features/notification/presentation/pages/notification_page.dart';
+import 'package:point_of_sale/src/features/onboarding/onboarding_page.dart';
 import 'package:point_of_sale/src/features/profile/presentation/profile_page.dart';
+import 'package:point_of_sale/src/features/splash/splash_page.dart';
 import 'package:point_of_sale/src/shared/widgets/layout_scaffold.dart';
 part 'routes.dart';
 
@@ -25,6 +27,20 @@ class AppPage {
     final token = cacheService.read('bearer_token');
 
     routes = [
+      GoRoute(
+        path: Routes.splash.path,
+        name: Routes.splash.name,
+        pageBuilder: (context, state) => MaterialPage(
+          child: SplashPage(rootNavigatorKey: _rootNavigatorKey, token: token),
+        ),
+      ),
+      GoRoute(
+        path: Routes.onBoarding.path,
+        name: Routes.onBoarding.name,
+        pageBuilder: (context, state) => MaterialPage(
+          child: OnboardingScreen(rootNavigatorKey: _rootNavigatorKey),
+        ),
+      ),
       GoRoute(
         path: Routes.login.path,
         name: Routes.login.name,
@@ -130,10 +146,11 @@ class AppPage {
     router = GoRouter(
       navigatorKey: _rootNavigatorKey,
       routes: routes,
-      initialLocation: token == null ? Routes.login.path : Routes.home.path,
+      // initialLocation: token == null ? Routes.login.path : Routes.home.path,
     );
   }
 }
+
 
 
 

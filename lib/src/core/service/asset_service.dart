@@ -9,4 +9,8 @@ class AssetsService {
   static const String profileLight = 'assets/icons/profile_light.png';
   static const String loginBackground =
       'assets/icons/login_background_image.png';
+
+  static const String onboarding1 = 'assets/images/onboarding1.jpg';
+  static const String onboarding2 = 'assets/images/onboarding2.jpg';
+  static const String onboarding3 = 'assets/images/onboarding3.jpg';
 }
