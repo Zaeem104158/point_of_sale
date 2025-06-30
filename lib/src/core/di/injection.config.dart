@@ -31,6 +31,8 @@ import '../../features/notification/domain/repository/notification_repository.da
     as _i1057;
 import '../../features/notification/domain/usecases/notifications.dart'
     as _i190;
+import '../../features/notification/domain/usecases/read_notification.dart'
+    as _i36;
 import '../../features/notification/presentation/bloc/notifications_bloc.dart'
     as _i65;
 import '../../shared/widgets/loader_widget.dart' as _i516;
@@ -78,11 +80,17 @@ Future<_i174.GetIt> init(
   gh.lazySingleton<_i190.Notifications>(
     () => _i190.Notifications(gh<_i1057.NotificationRepository>()),
   );
-  gh.factory<_i65.NotificationBloc>(
-    () => _i65.NotificationBloc(gh<_i190.Notifications>()),
+  gh.lazySingleton<_i36.ReadNotifications>(
+    () => _i36.ReadNotifications(gh<_i1057.NotificationRepository>()),
   );
   gh.lazySingleton<_i961.AuthRepository>(
     () => _i409.AuthRepositoryImpl(gh<_i1022.AuthRemoteDataSource>()),
+  );
+  gh.factory<_i65.NotificationBloc>(
+    () => _i65.NotificationBloc(
+      gh<_i190.Notifications>(),
+      gh<_i36.ReadNotifications>(),
+    ),
   );
   gh.lazySingleton<_i749.Login>(() => _i749.Login(gh<_i961.AuthRepository>()));
   gh.factory<_i990.LoginBloc>(() => _i990.LoginBloc(gh<_i749.Login>()));

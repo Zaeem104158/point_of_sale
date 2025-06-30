@@ -23,7 +23,6 @@ class NotificationLoaded extends NotificationState {
 
 class NotificationError extends NotificationState {
   final String message;
-  
 
   const NotificationError(this.message);
 

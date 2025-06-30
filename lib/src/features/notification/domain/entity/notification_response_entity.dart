@@ -22,4 +22,16 @@ class NotificationResponseEntity {
     required this.asnNotCreatedDate,
     required this.asnNotCreatedBy,
   });
+
+  NotificationResponseEntity copyWith({int? asnNotStatus}) {
+    return NotificationResponseEntity(
+      asnNotId: asnNotId,
+      asnNotLabel: asnNotLabel,
+      asnNotDesc: asnNotDesc,
+      asnNotStatus: asnNotStatus ?? this.asnNotStatus,
+      asnNotAscCompId: asnNotAscCompId,
+      asnNotCreatedDate: asnNotCreatedDate,
+      asnNotCreatedBy: asnNotCreatedBy,
+    );
+  }
 }

@@ -1,12 +1,16 @@
+import 'package:fancy_snackbar/fancy_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:intl/intl.dart';
 import 'package:point_of_sale/src/core/di/injection.dart';
+import 'package:point_of_sale/src/core/service/cache_service.dart';
+import 'package:point_of_sale/src/core/service/database_service.dart';
 import 'package:point_of_sale/src/core/style/app_color.dart';
 import 'package:point_of_sale/src/features/auth/domain/entity/login_response_entity.dart';
 import 'package:point_of_sale/src/features/notification/domain/entity/notification_response_entity.dart';
+import 'package:point_of_sale/src/features/notification/domain/entity/read_notification_request_entity.dart';
 import 'package:point_of_sale/src/features/notification/presentation/bloc/notifications_bloc.dart';
 import 'package:point_of_sale/src/features/notification/presentation/bloc/notifications_event.dart';
 import 'package:point_of_sale/src/features/notification/presentation/bloc/notifications_state.dart';
@@ -165,6 +169,7 @@ class _NotificationPageState extends State<NotificationPage> {
               const Spacer(),
 
               // Mark as Read Button
+              // if (notification.asnNotStatus! == 0)
               Align(
                 alignment: Alignment.bottomRight,
                 child: ElevatedButton.icon(
@@ -177,15 +182,23 @@ class _NotificationPageState extends State<NotificationPage> {
                     elevation: 0,
                   ),
                   onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          "Marked '${notification.asnNotLabel}' as read",
-                          style: textTheme.bodyMedium?.copyWith(
-                            color: Colors.white,
-                          ),
+                    final store = getIt<ObjectBoxService>().store;
+                    final loginResponseBox = store.box<LoginResponseEntity>();
+                    final userInfo = loginResponseBox.getAll();
+                    context.read<NotificationBloc>().add(
+                      ReadNotification(
+                        ReadNotificationRequestEntity(
+                          pComId: userInfo.first.comId,
+                          pNotificationId: notification.asnNotId,
                         ),
                       ),
+                    );
+                    FancySnackbar.showSnackbar(
+                      context,
+                      snackBarType: FancySnackBarType.success,
+                      title: "Successfull read notification",
+                      message: "${notification.asnNotLabel} is readed.",
+                      duration: 2,
                     );
                   },
                   icon: Icon(
@@ -193,7 +206,7 @@ class _NotificationPageState extends State<NotificationPage> {
                     color: primaryTextColor,
                   ),
                   label: Text(
-                    "Mark as Read",
+                    notification.asnNotStatus! != 0 ? "Mark as Read" : "Readed",
                     style: textTheme.labelLarge?.copyWith(
                       color: primaryTextColor,
                     ),

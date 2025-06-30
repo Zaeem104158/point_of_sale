@@ -8,7 +8,6 @@ import 'package:point_of_sale/src/core/service/cache_service.dart';
 import 'package:point_of_sale/src/core/service/database_service.dart';
 import 'package:point_of_sale/src/features/auth/domain/entity/login_response_entity.dart';
 import 'package:point_of_sale/src/features/auth/domain/usercases/login_usercase.dart';
-import 'package:point_of_sale/src/features/auth/presentation/pages/login_page.dart';
 import 'login_event.dart';
 import 'login_state.dart';
 
