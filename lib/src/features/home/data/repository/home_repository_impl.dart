@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:point_of_sale/src/core/error/failuer.dart';
 import 'package:point_of_sale/src/features/home/data/datasources/remote/home_remote_datasource.dart';
+import 'package:point_of_sale/src/features/home/domain/entity/company_news_report_entity.dart';
 import 'package:point_of_sale/src/features/home/domain/entity/home_response_entity.dart';
 import 'package:point_of_sale/src/features/home/domain/repository/home_repository.dart';
 import 'package:point_of_sale/src/core/di/injection.dart';
@@ -40,4 +41,33 @@ class HomeRepositoryImpl implements HomeRepository {
       return Left(UnknownFailure(e.toString()));
     }
   }
+
+    @override
+  Future<Either<Failure, List<CompanyNewsReportEntity>>> getCompanyNewsReport(
+    int pComId,
+  ) async {
+    try {
+      final httpResponse = await remoteDatasource.getCompanyNewsReport(
+        pComId,
+      );
+      if (httpResponse.response.statusCode == 200 &&
+          httpResponse.data.items.isNotEmpty) {
+        final List<CompanyNewsReportEntity> newsList = [];
+        for (int i = 0; i < httpResponse.data.items.length; i++) {
+          newsList.add(httpResponse.data.items[i].toEntity());
+        }
+
+        return Right(newsList);
+      } else {
+        return Left(ServerFailure("Server Failure"));
+      }
+    } on DioException catch (e) {
+      getIt<Logger>().e("message: $e");
+      return Left(ServerFailure(e.response?.data));
+    } catch (e) {
+      return Left(UnknownFailure(e.toString()));
+    }
+  }
+
+
 }

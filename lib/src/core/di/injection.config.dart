@@ -27,6 +27,7 @@ import '../../features/home/data/datasources/remote/home_remote_datasource.dart'
     as _i410;
 import '../../features/home/data/repository/home_repository_impl.dart' as _i9;
 import '../../features/home/domain/repository/home_repository.dart' as _i541;
+import '../../features/home/domain/usecases/get_company_news.dart' as _i8;
 import '../../features/home/domain/usecases/get_home_menus.dart' as _i227;
 import '../../features/home/presentation/bloc/home_bloc.dart' as _i202;
 import '../../features/notification/data/datasources/remote/notification_remote_datasource.dart'
@@ -101,7 +102,12 @@ Future<_i174.GetIt> init(
   gh.lazySingleton<_i227.GetHomeMenus>(
     () => _i227.GetHomeMenus(gh<_i541.HomeRepository>()),
   );
-  gh.factory<_i202.HomeBloc>(() => _i202.HomeBloc(gh<_i227.GetHomeMenus>()));
+  gh.lazySingleton<_i8.GetCompanyNews>(
+    () => _i8.GetCompanyNews(gh<_i541.HomeRepository>()),
+  );
+  gh.factory<_i202.HomeBloc>(
+    () => _i202.HomeBloc(gh<_i227.GetHomeMenus>(), gh<_i8.GetCompanyNews>()),
+  );
   gh.factory<_i65.NotificationBloc>(
     () => _i65.NotificationBloc(
       gh<_i190.Notifications>(),

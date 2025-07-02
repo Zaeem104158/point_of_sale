@@ -57,6 +57,41 @@ class _HomeRemoteDatasource implements HomeRemoteDatasource {
     return httpResponse;
   }
 
+  @override
+  Future<HttpResponse<PaginationModel<CompanyNewsReportModel>>>
+  getCompanyNewsReport(int pComIn) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'P_COM_ID': pComIn};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options =
+        _setStreamType<HttpResponse<PaginationModel<CompanyNewsReportModel>>>(
+          Options(method: 'GET', headers: _headers, extra: _extra)
+              .compose(
+                _dio.options,
+                '/POS_COMPANY_NEWS_REPORT',
+                queryParameters: queryParameters,
+                data: _data,
+              )
+              .copyWith(
+                baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl),
+              ),
+        );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late PaginationModel<CompanyNewsReportModel> _value;
+    try {
+      _value = PaginationModel<CompanyNewsReportModel>.fromJson(
+        _result.data!,
+        (json) => CompanyNewsReportModel.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

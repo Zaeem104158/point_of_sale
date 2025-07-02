@@ -17,3 +17,14 @@ class LoadHomeMenus extends HomeEvent {
   @override
   List<Object?> get props => [login];
 }
+
+
+class LoadCompanyNews extends HomeEvent {
+  final LoginResponseEntity login;
+  
+
+  const LoadCompanyNews(this.login);
+
+  @override
+  List<Object?> get props => [login];
+}
