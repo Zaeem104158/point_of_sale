@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:point_of_sale/src/core/di/injection.dart';
 import 'package:point_of_sale/src/core/style/app_color.dart';
@@ -41,109 +42,83 @@ class _HomePagePageState extends State<HomePage> {
         } else if (state is HomeMenusLoaded) {
           final menus = state.homeMenus;
 
-          return Stack(
-            children: [
-              // Background gradient
-              Container(
-                // decoration: BoxDecoration(
-                //   gradient: LinearGradient(
-                //     colors: [
-                //       Colors.blue.shade100.withOpacity(0.7),
-                //       Colors.purple.shade100.withOpacity(0.7),
-                //     ],
-                //     begin: Alignment.topLeft,
-                //     end: Alignment.bottomRight,
-                //   ),
-                // ),
-              ),
-              // Glassmorphism content
-              SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Latest News Card
-                      // GlassContainer.frostedGlass(
-                      //   child: ListTile(
-                      //     leading: Icon(
-                      //       Icons.new_releases,
-                      //       color: Colors.deepPurple,
-                      //     ),
-                      //     title: Text(
-                      //       'Latest News',
-                      //       style: TextStyle(fontWeight: FontWeight.bold),
-                      //     ),
-                      //     subtitle: Text(
-                      //       'New inventory features released! Check them out now.',
-                      //       maxLines: 2,
-                      //       overflow: TextOverflow.ellipsis,
-                      //     ),
-                      //   ),
-                      // ),
-                      SizedBox(height: 24),
-                      Text(
-                        'Menu',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      SizedBox(height: 12),
-                      Expanded(
-                        child: GridView.builder(
-                          itemCount: menus.length,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 18,
-                                crossAxisSpacing: 18,
-                                childAspectRatio: 1.1,
-                              ),
-                          itemBuilder: (context, index) {
-                            final menu = menus[index];
-                            return Card(
-                              color: isDark
-                                  ? AppColor.solidDarkColors[index %
-                                        AppColor.solidDarkColors.length]
-                                  : AppColor.solidLightColors[index %
-                                        AppColor.solidLightColors.length],
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18),
-                              ),
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(18),
-                                onTap: () {},
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Image.memory(
-                                      base64Decode(menu.iconsImage!),
-                                      width: 48,
-                                      height: 48,
-                                    ),
-                                    SizedBox(height: 12),
-                                    Text(
-                                      menu.aumMenuDesc!,
-                                      textAlign: TextAlign.center,
-                                      style: Theme.of(
-                                        context,
-                                      ).textTheme.headlineSmall,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
+          return Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //Latest News Card
+                GlassContainer.clearGlass(
+                  color: isDark
+                      ? AppColor.lightBackground.withValues(alpha: 0.1)
+                      : AppColor.accent.withValues(alpha: 0.1),
+                  height: 80.h,
+                  borderRadius: BorderRadius.circular(30.r),
+                  width: MediaQuery.of(context).size.width,
+                  child: ListTile(
+                    leading: Icon(Icons.new_releases, color: Colors.deepPurple),
+                    title: Text(
+                      'Latest News',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(
+                      'New inventory features released! Check them out now.',
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
-              ),
-            ],
+                SizedBox(height: 24),
+                Text('Menu', style: Theme.of(context).textTheme.displaySmall),
+                SizedBox(height: 12),
+                Expanded(
+                  child: GridView.builder(
+                    padding: EdgeInsets.zero,
+                    itemCount: menus.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 18,
+                      crossAxisSpacing: 18,
+                      childAspectRatio: 1.1,
+                    ),
+                    itemBuilder: (context, index) {
+                      final menu = menus[index];
+                      return Card(
+                        color: isDark
+                            ? AppColor.solidDarkColors[index %
+                                  AppColor.solidDarkColors.length]
+                            : AppColor.solidLightColors[index %
+                                  AppColor.solidLightColors.length],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(18),
+                          onTap: () {},
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.memory(
+                                base64Decode(menu.iconsImage!),
+                                width: 48,
+                                height: 48,
+                              ),
+                              SizedBox(height: 12),
+                              Text(
+                                menu.aumMenuDesc!,
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.labelLarge,
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           );
         }
         return const SizedBox();
