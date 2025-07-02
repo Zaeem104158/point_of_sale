@@ -25,7 +25,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePagePageState extends State<HomePage> {
   late HomeBloc _bloc;
-
+  bool isGridView = true;
   @override
   void initState() {
     super.initState();
@@ -69,53 +69,97 @@ class _HomePagePageState extends State<HomePage> {
                   ),
                 ),
                 SizedBox(height: 24),
-                Text('Menu', style: Theme.of(context).textTheme.displaySmall),
-                SizedBox(height: 12),
-                Expanded(
-                  child: GridView.builder(
-                    padding: EdgeInsets.zero,
-                    itemCount: menus.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 18,
-                      crossAxisSpacing: 18,
-                      childAspectRatio: 1.1,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Menu',
+                      style: Theme.of(context).textTheme.displaySmall,
                     ),
-                    itemBuilder: (context, index) {
-                      final menu = menus[index];
-                      return Card(
-                        color: isDark
-                            ? AppColor.solidDarkColors[index %
-                                  AppColor.solidDarkColors.length]
-                            : AppColor.solidLightColors[index %
-                                  AppColor.solidLightColors.length],
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(18),
-                          onTap: () {},
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Image.memory(
-                                base64Decode(menu.iconsImage!),
-                                width: 48,
-                                height: 48,
+                    IconButton(
+                      icon: Icon(
+                        isGridView
+                            ? Icons.view_list_rounded
+                            : Icons.grid_view_rounded,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          isGridView = !isGridView;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                SizedBox(height: 12),
+                // Expanded(
+                //   child: GridView.builder(
+                //     padding: EdgeInsets.zero,
+                //     itemCount: menus.length,
+                //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                //       crossAxisCount: 2,
+                //       mainAxisSpacing: 18,
+                //       crossAxisSpacing: 18,
+                //       childAspectRatio: 1.1,
+                //     ),
+                //     itemBuilder: (context, index) {
+                //       final menu = menus[index];
+                //       return Card(
+                //         color: isDark
+                //             ? AppColor.solidDarkColors[index %
+                //                   AppColor.solidDarkColors.length]
+                //             : AppColor.solidLightColors[index %
+                //                   AppColor.solidLightColors.length],
+                //         shape: RoundedRectangleBorder(
+                //           borderRadius: BorderRadius.circular(18),
+                //         ),
+                //         child: InkWell(
+                //           borderRadius: BorderRadius.circular(18),
+                //           onTap: () {},
+                //           child: Column(
+                //             mainAxisAlignment: MainAxisAlignment.center,
+                //             crossAxisAlignment: CrossAxisAlignment.center,
+                //             children: [
+                //               Image.memory(
+                //                 base64Decode(menu.iconsImage!),
+                //                 width: 48,
+                //                 height: 48,
+                //               ),
+                //               SizedBox(height: 12),
+                //               Text(
+                //                 menu.aumMenuDesc!,
+                //                 textAlign: TextAlign.center,
+                //                 style: Theme.of(context).textTheme.labelLarge,
+                //               ),
+                //             ],
+                //           ),
+                //         ),
+                //       );
+                //     },
+                //   ),
+                // ),
+                Expanded(
+                  child: isGridView
+                      ? GridView.builder(
+                          padding: EdgeInsets.zero,
+                          itemCount: menus.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 18,
+                                crossAxisSpacing: 18,
+                                childAspectRatio: 1.1,
                               ),
-                              SizedBox(height: 12),
-                              Text(
-                                menu.aumMenuDesc!,
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context).textTheme.labelLarge,
-                              ),
-                            ],
-                          ),
+                          itemBuilder: (context, index) =>
+                              _buildMenuCard(index, menus),
+                        )
+                      : ListView.separated(
+                          padding: EdgeInsets.zero,
+                          itemCount: menus.length,
+                          separatorBuilder: (_, __) =>
+                              const SizedBox(height: 12),
+                          itemBuilder: (context, index) =>
+                              _buildMenuCard(index, menus),
                         ),
-                      );
-                    },
-                  ),
                 ),
               ],
             ),
@@ -123,6 +167,62 @@ class _HomePagePageState extends State<HomePage> {
         }
         return const SizedBox();
       },
+    );
+  }
+
+  Widget _buildMenuCard(int index, menus) {
+    final menu = menus[index];
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final color = isDark
+        ? AppColor.solidDarkColors[index % AppColor.solidDarkColors.length]
+        : AppColor.solidLightColors[index % AppColor.solidLightColors.length];
+
+    return Card(
+      color: color,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(18),
+        onTap: () {},
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: isGridView
+              ? Column(
+                  spacing: 2,
+                  children: [
+                    Image.memory(
+                      base64Decode(menu.iconsImage!),
+                      width: 48,
+                      height: 48,
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Text(
+                        menu.aumMenuDesc!,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.labelLarge,
+                      ),
+                    ),
+                  ],
+                )
+              : Row(
+                  children: [
+                    Image.memory(
+                      base64Decode(menu.iconsImage!),
+                      width: 48,
+                      height: 48,
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Text(
+                        menu.aumMenuDesc!,
+
+                        style: Theme.of(context).textTheme.labelLarge,
+                      ),
+                    ),
+                  ],
+                ),
+        ),
+      ),
     );
   }
 }
