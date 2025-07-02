@@ -169,7 +169,6 @@ class _NotificationPageState extends State<NotificationPage> {
               const Spacer(),
 
               // Mark as Read Button
-              // if (notification.asnNotStatus! == 0)
               Align(
                 alignment: Alignment.bottomRight,
                 child: ElevatedButton.icon(
@@ -181,32 +180,35 @@ class _NotificationPageState extends State<NotificationPage> {
                     ),
                     elevation: 0,
                   ),
-                  onPressed: () {
-                    final store = getIt<ObjectBoxService>().store;
-                    final loginResponseBox = store.box<LoginResponseEntity>();
-                    final userInfo = loginResponseBox.getAll();
-                    context.read<NotificationBloc>().add(
-                      ReadNotification(
-                        ReadNotificationRequestEntity(
-                          pComId: userInfo.first.comId,
-                          pNotificationId: notification.asnNotId,
-                        ),
-                      ),
-                    );
-                    FancySnackbar.showSnackbar(
-                      context,
-                      snackBarType: FancySnackBarType.success,
-                      title: "Successfull read notification",
-                      message: "${notification.asnNotLabel} is readed.",
-                      duration: 2,
-                    );
-                  },
+                  onPressed: notification.asnNotStatus! == 0
+                      ? () {
+                          final store = getIt<ObjectBoxService>().store;
+                          final loginResponseBox = store
+                              .box<LoginResponseEntity>();
+                          final userInfo = loginResponseBox.getAll();
+                          context.read<NotificationBloc>().add(
+                            ReadNotification(
+                              ReadNotificationRequestEntity(
+                                pComId: userInfo.first.comId,
+                                pNotificationId: notification.asnNotId,
+                              ),
+                            ),
+                          );
+                          //    FancySnackbar.showSnackbar(
+                          //   context,
+                          //   snackBarType: FancySnackBarType.success,
+                          //   title: "Successfull read notification",
+                          //   message: "${notification.asnNotLabel} is readed.",
+                          //   duration: 2,
+                          // );
+                        }
+                      : null,
                   icon: Icon(
                     Icons.check_circle_outline,
                     color: primaryTextColor,
                   ),
                   label: Text(
-                    notification.asnNotStatus! != 0 ? "Mark as Read" : "Readed",
+                    notification.asnNotStatus! == 0 ? "Mark as Read" : "Readed",
                     style: textTheme.labelLarge?.copyWith(
                       color: primaryTextColor,
                     ),

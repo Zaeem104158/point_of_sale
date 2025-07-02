@@ -3,7 +3,6 @@ import 'package:injectable/injectable.dart';
 import 'package:point_of_sale/src/features/notification/data/model/notification_response_model.dart';
 import 'package:point_of_sale/src/features/notification/data/model/read_notification_request_model.dart';
 import 'package:point_of_sale/src/features/notification/data/model/read_notification_response_model.dart';
-import 'package:point_of_sale/src/features/notification/domain/entity/read_notification_response_entity.dart';
 import 'package:point_of_sale/src/shared/model/pagination_model.dart';
 import 'package:retrofit/retrofit.dart';
 

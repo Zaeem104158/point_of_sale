@@ -37,7 +37,7 @@ class NotificationResponseModel extends NotificationResponseEntity {
     };
   }
 
-  factory NotificationResponseModel.fromEntity(NotificationResponseModel entity) {
+  factory NotificationResponseModel.fromEntity(NotificationResponseEntity entity) {
     return NotificationResponseModel(
       asnNotId: entity.asnNotId,
       asnNotLabel: entity.asnNotLabel,

@@ -1,7 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:logger/logger.dart';
-import 'package:point_of_sale/src/core/di/injection.dart';
 import 'package:point_of_sale/src/features/notification/domain/usecases/notifications.dart';
 import 'package:point_of_sale/src/features/notification/domain/usecases/read_notification.dart';
 import 'package:point_of_sale/src/features/notification/presentation/bloc/notifications_event.dart';
@@ -48,19 +46,15 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
           emit(NotificationError(failure.message));
         },
         (response) {
-          getIt<Logger>().i("Read result: ${response.result}");
-
           // Create a new list where one item's status is updated
           final updatedList = currentState.notifications.map((notification) {
-            if (notification.id ==
+            if (notification.asnNotId ==
                 event.readNotificationRequestEntity.pNotificationId) {
-              return notification.copyWith(
-                asnNotStatus: 1,
-              ); // <- this method needs to exist
+              return notification.copyWith(asnNotStatus: 1);
             }
             return notification;
           }).toList();
-
+  
           emit(NotificationLoaded(updatedList));
         },
       );

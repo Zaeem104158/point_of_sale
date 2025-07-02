@@ -65,7 +65,7 @@ class NotificationRepositoryImpl implements NotificationRepository {
         return Left(ServerFailure("Server Failure"));
       }
     } on DioException catch (e) {
-      Logger().e("message: $e");
+      getIt<Logger>().e("message: $e");
       return Left(ServerFailure(e.response?.data));
     } catch (e) {
       return Left(UnknownFailure(e.toString()));

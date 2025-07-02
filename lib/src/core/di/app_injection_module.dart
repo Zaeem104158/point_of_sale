@@ -32,24 +32,6 @@ abstract class AppModule {
   @lazySingleton
   Widget get loader => getIt<LoaderWidget>();
 
-  // @singleton
-  // Dio dio() {
-  //   final dio = Dio(BaseOptions(baseUrl: AppConfig.apiBase));
-
-  //   dio.interceptors.add(
-  //     InterceptorsWrapper(
-  //       onRequest: (options, handler) async {
-  //         final token = getIt<ICacheService>().read("bearer_token");
-  //         log("Bearer Token: $token");
-  //         options.headers['Authorization'] = 'Bearer $token';
-  //         options.headers['Content-Type'] = 'application/json';
-  //         return handler.next(options);
-  //       },
-  //     ),
-  //   );
-  //   return dio;
-  // }
-
   @singleton
   Dio basicDio() {
     final dio = Dio(BaseOptions(baseUrl: AppConfig.apiBase));
@@ -74,3 +56,26 @@ abstract class AppModule {
   @lazySingleton
   GoRouter get router => getIt<AppPage>().router;
 }
+
+
+
+
+
+
+  // @singleton
+  // Dio dio() {
+  //   final dio = Dio(BaseOptions(baseUrl: AppConfig.apiBase));
+
+  //   dio.interceptors.add(
+  //     InterceptorsWrapper(
+  //       onRequest: (options, handler) async {
+  //         final token = getIt<ICacheService>().read("bearer_token");
+  //         log("Bearer Token: $token");
+  //         options.headers['Authorization'] = 'Bearer $token';
+  //         options.headers['Content-Type'] = 'application/json';
+  //         return handler.next(options);
+  //       },
+  //     ),
+  //   );
+  //   return dio;
+  // }

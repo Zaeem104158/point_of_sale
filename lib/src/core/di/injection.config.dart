@@ -23,6 +23,12 @@ import '../../features/auth/data/repository/auth_repository_impl.dart' as _i409;
 import '../../features/auth/domain/repository/auth_repository.dart' as _i961;
 import '../../features/auth/domain/usercases/login_usercase.dart' as _i749;
 import '../../features/auth/presentation/bloc/login_bloc.dart' as _i990;
+import '../../features/home/data/datasources/remote/home_remote_datasource.dart'
+    as _i410;
+import '../../features/home/data/repository/home_repository_impl.dart' as _i9;
+import '../../features/home/domain/repository/home_repository.dart' as _i541;
+import '../../features/home/domain/usecases/get_home_menus.dart' as _i227;
+import '../../features/home/presentation/bloc/home_bloc.dart' as _i202;
 import '../../features/notification/data/datasources/remote/notification_remote_datasource.dart'
     as _i882;
 import '../../features/notification/data/repository/notification_repository_impl.dart'
@@ -69,6 +75,9 @@ Future<_i174.GetIt> init(
   gh.lazySingleton<_i882.NotificationRemoteDataSource>(
     () => _i882.NotificationRemoteDataSource(gh<_i361.Dio>()),
   );
+  gh.lazySingleton<_i410.HomeRemoteDatasource>(
+    () => _i410.HomeRemoteDatasource(gh<_i361.Dio>()),
+  );
   gh.lazySingleton<_i1057.NotificationRepository>(
     () => _i341.NotificationRepositoryImpl(
       gh<_i882.NotificationRemoteDataSource>(),
@@ -76,6 +85,9 @@ Future<_i174.GetIt> init(
   );
   gh.lazySingleton<_i723.ICacheService>(
     () => _i723.CacheService(gh<_i460.SharedPreferences>()),
+  );
+  gh.lazySingleton<_i541.HomeRepository>(
+    () => _i9.HomeRepositoryImpl(gh<_i410.HomeRemoteDatasource>()),
   );
   gh.lazySingleton<_i190.Notifications>(
     () => _i190.Notifications(gh<_i1057.NotificationRepository>()),
@@ -86,6 +98,10 @@ Future<_i174.GetIt> init(
   gh.lazySingleton<_i961.AuthRepository>(
     () => _i409.AuthRepositoryImpl(gh<_i1022.AuthRemoteDataSource>()),
   );
+  gh.lazySingleton<_i227.GetHomeMenus>(
+    () => _i227.GetHomeMenus(gh<_i541.HomeRepository>()),
+  );
+  gh.factory<_i202.HomeBloc>(() => _i202.HomeBloc(gh<_i227.GetHomeMenus>()));
   gh.factory<_i65.NotificationBloc>(
     () => _i65.NotificationBloc(
       gh<_i190.Notifications>(),

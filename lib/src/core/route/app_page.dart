@@ -74,8 +74,14 @@ class AppPage {
               GoRoute(
                 path: Routes.home.path,
                 name: Routes.home.name,
-                pageBuilder: (context, state) =>
-                    MaterialPage(child: HomePage()),
+                pageBuilder: (context, state) {
+                  final store = getIt<ObjectBoxService>().store;
+                  final loginResponseBox = store.box<LoginResponseEntity>();
+                  final loginResponseData = loginResponseBox.getAll();
+                  return MaterialPage(
+                    child: HomePage(login: loginResponseData.first),
+                  );
+                },
               ),
             ],
           ),
