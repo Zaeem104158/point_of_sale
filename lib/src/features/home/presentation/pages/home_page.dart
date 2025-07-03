@@ -7,6 +7,7 @@ import 'package:point_of_sale/src/core/di/injection.dart';
 import 'package:point_of_sale/src/core/style/app_color.dart';
 import 'package:point_of_sale/src/features/auth/domain/entity/login_response_entity.dart';
 import 'package:point_of_sale/src/features/home/domain/entity/company_news_report_entity.dart';
+import 'package:point_of_sale/src/features/home/domain/entity/home_response_entity.dart';
 import 'package:point_of_sale/src/features/home/presentation/bloc/home_bloc.dart';
 import 'package:point_of_sale/src/features/home/presentation/bloc/home_event.dart';
 import 'package:point_of_sale/src/features/home/presentation/bloc/home_state.dart';
@@ -43,55 +44,60 @@ class _HomePagePageState extends State<HomePage> {
           return Center(child: Text("Error: ${state.error}"));
         }
 
-        return Column(
-          children: [
-            // Show news if available
-            if (state.news.isNotEmpty) _buildNewsWidget(state.news),
+        return Padding(
+          padding: EdgeInsets.all(16.0.h),
+          child: Column(
+            children: [
+              // Show news if available
+              if (state.news.isNotEmpty) _buildNewsWidget(state.news),
 
-            // Grid/List toggle button
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Menu', style: Theme.of(context).textTheme.displaySmall),
-                IconButton(
-                  icon: Icon(
-                    isGridView
-                        ? Icons.view_list_rounded
-                        : Icons.grid_view_rounded,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      isGridView = !isGridView;
-                    });
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-
-            // Show menus
-            Expanded(
-              child: isGridView
-                  ? GridView.builder(
-                      itemCount: state.menus.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 18,
-                            crossAxisSpacing: 18,
-                            childAspectRatio: 1.1,
-                          ),
-                      itemBuilder: (context, index) =>
-                          _buildMenuCard(index, state.menus),
-                    )
-                  : ListView.separated(
-                      itemCount: state.menus.length,
-                      separatorBuilder: (_, __) => const SizedBox(height: 12),
-                      itemBuilder: (context, index) =>
-                          _buildMenuCard(index, state.menus),
+              // Grid/List toggle button
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Menu', style: Theme.of(context).textTheme.displaySmall),
+                  IconButton(
+                    icon: Icon(
+                      isGridView
+                          ? Icons.view_list_rounded
+                          : Icons.grid_view_rounded,
                     ),
-            ),
-          ],
+                    onPressed: () {
+                      setState(() {
+                        isGridView = !isGridView;
+                      });
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+
+              // Show menus
+              Expanded(
+                child: isGridView
+                    ? GridView.builder(
+                        padding: EdgeInsets.zero,
+                        itemCount: state.menus.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 18,
+                              crossAxisSpacing: 18,
+                              childAspectRatio: 1.1,
+                            ),
+                        itemBuilder: (context, index) =>
+                            _buildMenuCard(index, state.menus),
+                      )
+                    : ListView.separated(
+                        padding: EdgeInsets.zero,
+                        itemCount: state.menus.length,
+                        separatorBuilder: (_, __) => const SizedBox(height: 12),
+                        itemBuilder: (context, index) =>
+                            _buildMenuCard(index, state.menus),
+                      ),
+              ),
+            ],
+          ),
         );
       },
     );
@@ -126,7 +132,7 @@ class _HomePagePageState extends State<HomePage> {
   }
 
   Widget _buildMenuCard(int index, menus) {
-    final menu = menus[index];
+    final HomeMenusResponseEntity menu = menus[index];
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final color = isDark
         ? AppColor.solidDarkColors[index % AppColor.solidDarkColors.length]

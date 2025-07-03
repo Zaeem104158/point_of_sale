@@ -40,3 +40,7 @@ class CacheService implements ICacheService {
     await _prefs.clear();
   }
 }
+
+class LocalCacheKeys {
+  static const theme = "theme";
+}

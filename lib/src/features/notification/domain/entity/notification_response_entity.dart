@@ -10,6 +10,7 @@ class NotificationResponseEntity {
   String? asnNotDesc;
   int? asnNotStatus;
   int? asnNotAscCompId;
+  @Property(type: PropertyType.date)
   DateTime? asnNotCreatedDate;
   String? asnNotCreatedBy;
 

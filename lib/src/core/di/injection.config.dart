@@ -42,6 +42,7 @@ import '../../features/notification/domain/usecases/read_notification.dart'
     as _i36;
 import '../../features/notification/presentation/bloc/notifications_bloc.dart'
     as _i65;
+import '../../shared/theme/theme_cubit.dart' as _i0;
 import '../../shared/widgets/loader_widget.dart' as _i516;
 import '../route/app_page.dart' as _i900;
 import '../service/cache_service.dart' as _i723;
@@ -70,14 +71,14 @@ Future<_i174.GetIt> init(
   gh.lazySingleton<_i583.GoRouter>(() => appModule.router);
   gh.lazySingleton<_i900.AppPage>(() => _i900.AppPage());
   gh.lazySingleton<_i516.LoaderWidget>(() => _i516.LoaderWidget());
+  gh.lazySingleton<_i410.HomeRemoteDatasource>(
+    () => _i410.HomeRemoteDatasource(gh<_i361.Dio>()),
+  );
   gh.lazySingleton<_i1022.AuthRemoteDataSource>(
     () => _i1022.AuthRemoteDataSource(gh<_i361.Dio>()),
   );
   gh.lazySingleton<_i882.NotificationRemoteDataSource>(
     () => _i882.NotificationRemoteDataSource(gh<_i361.Dio>()),
-  );
-  gh.lazySingleton<_i410.HomeRemoteDatasource>(
-    () => _i410.HomeRemoteDatasource(gh<_i361.Dio>()),
   );
   gh.lazySingleton<_i1057.NotificationRepository>(
     () => _i341.NotificationRepositoryImpl(
@@ -86,6 +87,9 @@ Future<_i174.GetIt> init(
   );
   gh.lazySingleton<_i723.ICacheService>(
     () => _i723.CacheService(gh<_i460.SharedPreferences>()),
+  );
+  gh.lazySingleton<_i0.ThemeCubit>(
+    () => _i0.ThemeCubit(gh<_i723.ICacheService>()),
   );
   gh.lazySingleton<_i541.HomeRepository>(
     () => _i9.HomeRepositoryImpl(gh<_i410.HomeRemoteDatasource>()),
@@ -99,11 +103,11 @@ Future<_i174.GetIt> init(
   gh.lazySingleton<_i961.AuthRepository>(
     () => _i409.AuthRepositoryImpl(gh<_i1022.AuthRemoteDataSource>()),
   );
-  gh.lazySingleton<_i227.GetHomeMenus>(
-    () => _i227.GetHomeMenus(gh<_i541.HomeRepository>()),
-  );
   gh.lazySingleton<_i8.GetCompanyNews>(
     () => _i8.GetCompanyNews(gh<_i541.HomeRepository>()),
+  );
+  gh.lazySingleton<_i227.GetHomeMenus>(
+    () => _i227.GetHomeMenus(gh<_i541.HomeRepository>()),
   );
   gh.factory<_i202.HomeBloc>(
     () => _i202.HomeBloc(gh<_i227.GetHomeMenus>(), gh<_i8.GetCompanyNews>()),

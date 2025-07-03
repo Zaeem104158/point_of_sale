@@ -27,6 +27,7 @@ class AppPage {
     final token = cacheService.read('bearer_token');
 
     routes = [
+      // splash page
       GoRoute(
         path: Routes.splash.path,
         name: Routes.splash.name,
@@ -34,6 +35,7 @@ class AppPage {
           child: SplashPage(rootNavigatorKey: _rootNavigatorKey, token: token),
         ),
       ),
+      // onboarding page
       GoRoute(
         path: Routes.onBoarding.path,
         name: Routes.onBoarding.name,
@@ -41,6 +43,7 @@ class AppPage {
           child: OnboardingScreen(rootNavigatorKey: _rootNavigatorKey),
         ),
       ),
+      // login page
       GoRoute(
         path: Routes.login.path,
         name: Routes.login.name,
@@ -93,45 +96,45 @@ class AppPage {
                 name: Routes.profile.name,
                 pageBuilder: (context, state) =>
                     MaterialPage(child: ProfilePage()),
-                routes: [
-                  GoRoute(
-                    path: Routes.settings.path,
-                    name: Routes.settings.name,
-                    pageBuilder: (context, state) => MaterialPage(
-                      child: Scaffold(
-                        appBar: AppBar(title: Text("Settings")),
-                        body: Center(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              // context.pushNamed(Routes.about.name);
-                              context.pop(true);
-                            },
-                            child: Text("Goto About"),
-                          ),
-                        ),
-                      ),
-                    ),
-                    routes: [
-                      GoRoute(
-                        path: Routes.about.path,
-                        name: Routes.about.name,
-                        pageBuilder: (context, state) => MaterialPage(
-                          child: Scaffold(
-                            appBar: AppBar(title: Text("About")),
-                            body: Center(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  context.pushNamed(Routes.payBill.name);
-                                },
-                                child: Text("Goto Paybill"),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                // routes: [
+                //   GoRoute(
+                //     path: Routes.settings.path,
+                //     name: Routes.settings.name,
+                //     pageBuilder: (context, state) => MaterialPage(
+                //       child: Scaffold(
+                //         appBar: AppBar(title: Text("Settings")),
+                //         body: Center(
+                //           child: ElevatedButton(
+                //             onPressed: () {
+                //               // context.pushNamed(Routes.about.name);
+                //               context.pop(true);
+                //             },
+                //             child: Text("Goto About"),
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //     routes: [
+                //       GoRoute(
+                //         path: Routes.about.path,
+                //         name: Routes.about.name,
+                //         pageBuilder: (context, state) => MaterialPage(
+                //           child: Scaffold(
+                //             appBar: AppBar(title: Text("About")),
+                //             body: Center(
+                //               child: ElevatedButton(
+                //                 onPressed: () {
+                //                   context.pushNamed(Routes.payBill.name);
+                //                 },
+                //                 child: Text("Goto Paybill"),
+                //               ),
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ],
               ),
             ],
           ),

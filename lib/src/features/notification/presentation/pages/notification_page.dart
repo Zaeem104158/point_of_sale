@@ -38,37 +38,26 @@ class _NotificationPageState extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: isDark
-              ? [AppColor.primary, AppColor.cardDark]
-              : [AppColor.lightBackground, AppColor.cardLight],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      ),
-      child: BlocBuilder<NotificationBloc, NotificationState>(
-        builder: (context, state) {
-          if (state is NotificationLoading) {
-            return Center(child: getIt<LoaderWidget>());
-          } else if (state is NotificationLoaded) {
-            final notifications = state.notifications;
+    return BlocBuilder<NotificationBloc, NotificationState>(
+      builder: (context, state) {
+        if (state is NotificationLoading) {
+          return Center(child: getIt<LoaderWidget>());
+        } else if (state is NotificationLoaded) {
+          final notifications = state.notifications;
 
-            return ListView.builder(
-              padding: const EdgeInsets.all(8),
-              itemCount: notifications.length,
-              itemBuilder: (context, index) {
-                final notification = notifications[index];
-                return _buildGlassCard(notification, isDark, context);
-              },
-            );
-          } else if (state is NotificationError) {
-            return Center(child: Text("Error: ${state.message}"));
-          }
-          return const SizedBox();
-        },
-      ),
+          return ListView.builder(
+            padding: const EdgeInsets.all(8),
+            itemCount: notifications.length,
+            itemBuilder: (context, index) {
+              final notification = notifications[index];
+              return _buildGlassCard(notification, isDark, context);
+            },
+          );
+        } else if (state is NotificationError) {
+          return Center(child: Text("Error: ${state.message}"));
+        }
+        return const SizedBox();
+      },
     );
   }
 
