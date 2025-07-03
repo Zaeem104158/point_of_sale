@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
+import 'package:go_router/go_router.dart';
 import 'package:point_of_sale/src/core/di/injection.dart';
+import 'package:point_of_sale/src/core/route/app_page.dart';
 import 'package:point_of_sale/src/core/service/cache_service.dart';
 import 'package:point_of_sale/src/core/style/app_color.dart';
 import 'package:point_of_sale/src/shared/theme/theme_cubit.dart';
@@ -55,14 +57,15 @@ class _ProfilePageState extends State<ProfilePage> {
           tiles: [
             SettingsTile(
               title: Text('Language'),
-              description: Text('English'),
+              description: Text(''),
               leading: Icon(Icons.language),
-              onPressed: (BuildContext context) {},
+              // onPressed: (BuildContext context) {},
             ),
             SettingsTile.switchTile(
               initialValue: isDarkMode,
               title: Text('Dark Mode'),
-              leading: Icon(Icons.brightness_6),
+              description: Text(""),
+              leading: Icon(isDarkMode ? Icons.light_mode : Icons.dark_mode),
               onToggle: (bool value) {
                 final themeCubit = getIt<ThemeCubit>();
                 final newMode = value ? ThemeMode.dark : ThemeMode.light;
@@ -70,6 +73,16 @@ class _ProfilePageState extends State<ProfilePage> {
                 setState(() {
                   isDarkMode = value;
                 });
+              },
+            ),
+            SettingsTile(
+              title: Text('Logout'),
+              description: Text(''),
+              leading: Icon(Icons.logout),
+              onPressed: (BuildContext context) async {
+                ICacheService cacheService = getIt<ICacheService>();
+                await cacheService.write('bearer_token', "");
+                context.goNamed(Routes.login.name);
               },
             ),
           ],

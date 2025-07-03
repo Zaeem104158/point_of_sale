@@ -28,7 +28,7 @@ class SplashPage extends StatelessWidget {
         final isOnboardingComplete = await cacheService.read('onboarding');
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (_rootNavigatorKey.currentContext == null) return;
-          if (token == null) {
+          if (token == "") {
             if (isOnboardingComplete == null) {
               _rootNavigatorKey.currentContext!.goNamed(Routes.onBoarding.name);
             } else {

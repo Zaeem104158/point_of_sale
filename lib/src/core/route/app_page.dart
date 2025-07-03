@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
@@ -25,7 +27,7 @@ class AppPage {
   AppPage() {
     cacheService = getIt<ICacheService>();
     final token = cacheService.read('bearer_token');
-
+   
     routes = [
       // splash page
       GoRoute(
