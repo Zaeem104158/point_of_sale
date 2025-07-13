@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:fpdart/src/either.dart';
 import 'package:injectable/injectable.dart';
@@ -23,16 +25,17 @@ class HomeRepositoryImpl implements HomeRepository {
         pComId,
         pUsername,
       );
+
+      final List<HomeMenusResponseEntity> homeMenusList = [];
       if (httpResponse.response.statusCode == 200 &&
           httpResponse.data.items.isNotEmpty) {
-        final List<HomeMenusResponseEntity> homeMenusList = [];
         for (int i = 0; i < httpResponse.data.items.length; i++) {
           homeMenusList.add(httpResponse.data.items[i].toEntity());
         }
 
         return Right(homeMenusList);
       } else {
-        return Left(ServerFailure("Server Failure"));
+        return Right(homeMenusList);
       }
     } on DioException catch (e) {
       getIt<Logger>().e("message: $e");
@@ -42,24 +45,22 @@ class HomeRepositoryImpl implements HomeRepository {
     }
   }
 
-    @override
+  @override
   Future<Either<Failure, List<CompanyNewsReportEntity>>> getCompanyNewsReport(
     int pComId,
   ) async {
     try {
-      final httpResponse = await remoteDatasource.getCompanyNewsReport(
-        pComId,
-      );
+      final List<CompanyNewsReportEntity> newsList = [];
+      final httpResponse = await remoteDatasource.getCompanyNewsReport(pComId);
       if (httpResponse.response.statusCode == 200 &&
           httpResponse.data.items.isNotEmpty) {
-        final List<CompanyNewsReportEntity> newsList = [];
         for (int i = 0; i < httpResponse.data.items.length; i++) {
           newsList.add(httpResponse.data.items[i].toEntity());
         }
 
         return Right(newsList);
       } else {
-        return Left(ServerFailure("Server Failure"));
+        return Right(newsList);
       }
     } on DioException catch (e) {
       getIt<Logger>().e("message: $e");
@@ -68,6 +69,4 @@ class HomeRepositoryImpl implements HomeRepository {
       return Left(UnknownFailure(e.toString()));
     }
   }
-
-
 }

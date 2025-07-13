@@ -1,11 +1,9 @@
-import 'package:fancy_snackbar/fancy_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:glass_kit/glass_kit.dart';
 import 'package:intl/intl.dart';
 import 'package:point_of_sale/src/core/di/injection.dart';
-import 'package:point_of_sale/src/core/service/cache_service.dart';
 import 'package:point_of_sale/src/core/service/database_service.dart';
 import 'package:point_of_sale/src/core/style/app_color.dart';
 import 'package:point_of_sale/src/features/auth/domain/entity/login_response_entity.dart';
@@ -45,13 +43,17 @@ class _NotificationPageState extends State<NotificationPage> {
         } else if (state is NotificationLoaded) {
           final notifications = state.notifications;
 
-          return ListView.builder(
-            padding: const EdgeInsets.all(8),
-            itemCount: notifications.length,
-            itemBuilder: (context, index) {
-              final notification = notifications[index];
-              return _buildGlassCard(notification, isDark, context);
-            },
+          return Stack(
+            children: [
+              ListView.builder(
+                padding: const EdgeInsets.all(8),
+                itemCount: notifications.length,
+                itemBuilder: (context, index) {
+                  final notification = notifications[index];
+                  return _buildGlassCard(notification, isDark, context);
+                },
+              ),
+            ],
           );
         } else if (state is NotificationError) {
           return Center(child: Text("Error: ${state.message}"));
