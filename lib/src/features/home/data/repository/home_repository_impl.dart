@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:fpdart/src/either.dart';
 import 'package:injectable/injectable.dart';
@@ -10,13 +8,14 @@ import 'package:point_of_sale/src/features/home/domain/entity/company_news_repor
 import 'package:point_of_sale/src/features/home/domain/entity/home_response_entity.dart';
 import 'package:point_of_sale/src/features/home/domain/repository/home_repository.dart';
 import 'package:point_of_sale/src/core/di/injection.dart';
+import 'package:point_of_sale/src/shared/usecase/usecase.dart';
 
 @LazySingleton(as: HomeRepository)
 class HomeRepositoryImpl implements HomeRepository {
   final HomeRemoteDatasource remoteDatasource;
   HomeRepositoryImpl(this.remoteDatasource);
   @override
-  Future<Either<Failure, List<HomeMenusResponseEntity>>> getHomeMenus(
+  Future<Result<List<HomeMenusResponseEntity>>> getHomeMenus(
     int pComId,
     String pUsername,
   ) async {
@@ -46,7 +45,7 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
-  Future<Either<Failure, List<CompanyNewsReportEntity>>> getCompanyNewsReport(
+  Future<Result<List<CompanyNewsReportEntity>>> getCompanyNewsReport(
     int pComId,
   ) async {
     try {

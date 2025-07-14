@@ -10,13 +10,13 @@ import 'package:point_of_sale/src/shared/usecase/usecase.dart';
 @LazySingleton()
 class Login
     implements
-        UseCase<Either<Failure, LoginResponseEntity>, LoginRequestModel> {
+        UseCase<LoginResponseEntity, LoginRequestModel> {
   final AuthRepository _authRepository;
 
   Login(this._authRepository);
 
   @override
-  Future<Either<Failure, LoginResponseEntity>> call(LoginRequestEntity params) {
+  Future<Result<LoginResponseEntity>> call(LoginRequestEntity params) {
     return _authRepository.login(params);
   }
 }

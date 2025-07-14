@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
@@ -9,6 +7,7 @@ import 'package:point_of_sale/src/features/auth/data/model/login_request_model.d
 import 'package:point_of_sale/src/features/auth/data/model/login_response_model.dart';
 import 'package:point_of_sale/src/features/auth/domain/entity/login_request_entity.dart';
 import 'package:point_of_sale/src/features/auth/domain/entity/login_response_entity.dart';
+import 'package:point_of_sale/src/shared/usecase/usecase.dart';
 import 'package:retrofit/dio.dart';
 import '../../domain/repository/auth_repository.dart';
 import '../datasources/remote/auth_remote_datasource.dart';
@@ -20,7 +19,7 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this.remoteDataSource);
 
   @override
-  Future<Either<Failure, LoginResponseEntity>> login(
+  Future<Result<LoginResponseEntity>> login(
     LoginRequestEntity loginRequestEntity,
   ) async {
     try {
@@ -28,13 +27,15 @@ class AuthRepositoryImpl implements AuthRepository {
         loginRequestEntity,
       );
 
-      final HttpResponse<LoginResponseModel> httpResponse = await remoteDataSource
-          .login(loginRequestModel);
+      final HttpResponse<LoginResponseModel> httpResponse =
+          await remoteDataSource.login(loginRequestModel);
       if (httpResponse.response.statusCode == 200 &&
           httpResponse.data.result?.toLowerCase() == 'success') {
         return Right(httpResponse.data);
       } else {
-        return Left(ServerFailure(httpResponse.data.message ?? "Server Failure"));
+        return Left(
+          ServerFailure(httpResponse.data.message ?? "Server Failure"),
+        );
       }
     } on DioException catch (e) {
       Logger().e("message: $e");

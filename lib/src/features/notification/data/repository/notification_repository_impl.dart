@@ -10,13 +10,14 @@ import 'package:point_of_sale/src/features/notification/domain/entity/notificati
 import 'package:point_of_sale/src/features/notification/domain/entity/read_notification_request_entity.dart';
 import 'package:point_of_sale/src/features/notification/domain/entity/read_notification_response_entity.dart';
 import 'package:point_of_sale/src/features/notification/domain/repository/notification_repository.dart';
+import 'package:point_of_sale/src/shared/usecase/usecase.dart';
 
 @LazySingleton(as: NotificationRepository)
 class NotificationRepositoryImpl implements NotificationRepository {
   final NotificationRemoteDataSource remoteDataSource;
   NotificationRepositoryImpl(this.remoteDataSource);
   @override
-  Future<Either<Failure, List<NotificationResponseEntity>>> getNotifications(
+  Future<Result<List<NotificationResponseEntity>>> getNotifications(
     int pComId,
     String pUsername,
   ) async {
@@ -45,7 +46,7 @@ class NotificationRepositoryImpl implements NotificationRepository {
   }
 
   @override
-  Future<Either<Failure, ReadNotificationResponseEntity>> readNotifications(
+  Future<Result<ReadNotificationResponseEntity>> readNotifications(
     ReadNotificationRequestEntity readNotificationRequestEntity,
   ) async {
     try {

@@ -9,13 +9,13 @@ import 'package:point_of_sale/src/shared/usecase/usecase.dart';
 @LazySingleton()
 class ReadNotifications
     implements
-        UseCase<Either<Failure, ReadNotificationResponseEntity>, ReadNotificationRequestEntity> {
+        UseCase<ReadNotificationResponseEntity, ReadNotificationRequestEntity> {
   final NotificationRepository _repository;
 
   ReadNotifications(this._repository);
 
   @override
-  Future<Either<Failure,ReadNotificationResponseEntity>> call(ReadNotificationRequestEntity readNotificationRequestEntity) {
+  Future<Result<ReadNotificationResponseEntity>> call(ReadNotificationRequestEntity readNotificationRequestEntity) {
     return _repository.readNotifications(readNotificationRequestEntity);
   }
 }

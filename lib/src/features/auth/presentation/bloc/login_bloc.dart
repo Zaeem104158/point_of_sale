@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:logger/logger.dart';
 import 'package:point_of_sale/src/core/di/injection.dart';
 import 'package:point_of_sale/src/core/service/cache_service.dart';
 import 'package:point_of_sale/src/core/service/database_service.dart';
